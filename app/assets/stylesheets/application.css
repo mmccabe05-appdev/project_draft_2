@@ -12,3 +12,10 @@
  *
  *= require_self
  */
+.body {
+  text-align: center;
+  background: gray;
+}
+ .h1 {
+  font-color: blue;
+ }
