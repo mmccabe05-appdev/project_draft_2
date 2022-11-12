@@ -30,5 +30,17 @@ body {
   text-align: center;
  }
  .reasons {
+  width: 100%;
+  align-content: center;
+  align-content: flex-start;
   text-align: center;
  }
+ .reasons_table {
+  width: 66%;
+  align-content: center;
+  align-content: flex-start;
+  text-align: center;
+ }
+.footer {
+  vertical-align:bottom 0px;
+}

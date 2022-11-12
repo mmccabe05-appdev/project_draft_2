@@ -1,4 +1,4 @@
-class MetaphorController < ActionController::Base
+class MetaphorController < ApplicationController
   require "open-uri"
   require "json"
   # requirement below to use the Twitter API when I figure out some pieces to make it work

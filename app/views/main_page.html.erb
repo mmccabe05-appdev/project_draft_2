@@ -5,12 +5,19 @@
 <div class="metaphor_selector">
   <h2>the 
   <form action="/metaphor">
-    <select value="sample">
+    <select name="query_neighborhood">
+      <option value="blank"></option>
+      <!-- create a Do loop that populates the menu options from the database, populate values with neighborhood.id and text with neighborhood.name -->
+      <option value="Gold Coast">Gold Coast (Chicago)</option>
       <option value="Logan Square">Logan Square (Chicago)</option>
     </select>
     of 
    
-      <select>
+      <select name="query_city">
+            <!-- create a Do loop that populates the menu options from the database, populate values with city.id and text with city.name -->
+
+        <option value="blank"></option>
+        <option value="Chicago">Chicago</option>
         <option value="Philadelphia">Philadelphia</option>
       </select>
   <br>
