@@ -10,6 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2022_11_20_222305) do
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.string "state"
+    t.string "description"
+    t.string "wiki_link"
+    t.decimal "lat"
+    t.decimal "lng"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "neighborhoods", force: :cascade do |t|
+    t.string "name"
+    t.integer "city_id"
+    t.text "description"
+    t.string "wiki_link"
+    t.decimal "lat"
+    t.decimal "lng"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "reasons", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "description"
+    t.string "link"
+    t.integer "upvotes"
+    t.integer "downvotes"
+    t.integer "neighborhood_id_1"
+    t.integer "neighborhood_id_2"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.string "password_digest"
+    t.string "first_name"
+    t.string "last_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
 end

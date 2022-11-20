@@ -1,0 +1,166 @@
+<div>
+  <div>
+    <h1>
+      List of all cities
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new city
+    </h2>
+
+    <form action="/insert_city" method="post">
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name">
+      </div>
+
+      <div>
+        <label for="state_box">
+          State
+        </label>
+
+        <input type="text" id="state_box" name="query_state">
+      </div>
+
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+
+        <input type="text" id="description_box" name="query_description">
+      </div>
+
+      <div>
+        <label for="wiki_link_box">
+          Wiki link
+        </label>
+
+        <input type="text" id="wiki_link_box" name="query_wiki_link">
+      </div>
+
+      <div>
+        <label for="lat_box">
+          Lat
+        </label>
+
+        <input type="text" id="lat_box" name="query_lat">
+      </div>
+
+      <div>
+        <label for="lng_box">
+          Lng
+        </label>
+
+        <input type="text" id="lng_box" name="query_lng">
+      </div>
+
+      <button>
+        Create city
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Name
+        </th>
+
+        <th>
+          State
+        </th>
+
+        <th>
+          Description
+        </th>
+
+        <th>
+          Wiki link
+        </th>
+
+        <th>
+          Lat
+        </th>
+
+        <th>
+          Lng
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_cities.each do |a_city| %>
+      <tr>
+        <td>
+          <%= a_city.id %>
+        </td>
+
+        <td>
+          <%= a_city.name %>
+        </td>
+
+        <td>
+          <%= a_city.state %>
+        </td>
+
+        <td>
+          <%= a_city.description %>
+        </td>
+
+        <td>
+          <%= a_city.wiki_link %>
+        </td>
+
+        <td>
+          <%= a_city.lat %>
+        </td>
+
+        <td>
+          <%= a_city.lng %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_city.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_city.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/cities/<%= a_city.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

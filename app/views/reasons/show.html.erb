@@ -1,0 +1,161 @@
+<div>
+  <div>
+    <h1>
+      Reason #<%= @the_reason.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/reasons">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_reason/<%= @the_reason.id %>">
+          Delete reason
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_reason.user_id %>
+      </dd>
+
+      <dt>
+        Description
+      </dt>
+      <dd>
+        <%= @the_reason.description %>
+      </dd>
+
+      <dt>
+        Link
+      </dt>
+      <dd>
+        <%= @the_reason.link %>
+      </dd>
+
+      <dt>
+        Upvotes
+      </dt>
+      <dd>
+        <%= @the_reason.upvotes %>
+      </dd>
+
+      <dt>
+        Downvotes
+      </dt>
+      <dd>
+        <%= @the_reason.downvotes %>
+      </dd>
+
+      <dt>
+        Neighborhood id 1
+      </dt>
+      <dd>
+        <%= @the_reason.neighborhood_id_1 %>
+      </dd>
+
+      <dt>
+        Neighborhood id 2
+      </dt>
+      <dd>
+        <%= @the_reason.neighborhood_id_2 %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_reason.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_reason.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit reason
+    </h2>
+
+    <form action="/modify_reason/<%= @the_reason.id %>"  method="post" >
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_reason.user_id %>">
+      </div>
+
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+
+        <input type="text" id="description_box" name="query_description" value="<%= @the_reason.description %>">
+      </div>
+
+      <div>
+        <label for="link_box">
+          Link
+        </label>
+
+        <input type="text" id="link_box" name="query_link" value="<%= @the_reason.link %>">
+      </div>
+
+      <div>
+        <label for="upvotes_box">
+          Upvotes
+        </label>
+
+        <input type="text" id="upvotes_box" name="query_upvotes" value="<%= @the_reason.upvotes %>">
+      </div>
+
+      <div>
+        <label for="downvotes_box">
+          Downvotes
+        </label>
+
+        <input type="text" id="downvotes_box" name="query_downvotes" value="<%= @the_reason.downvotes %>">
+      </div>
+
+      <div>
+        <label for="neighborhood_id_1_box">
+          Neighborhood id 1
+        </label>
+
+        <input type="text" id="neighborhood_id_1_box" name="query_neighborhood_id_1" value="<%= @the_reason.neighborhood_id_1 %>">
+      </div>
+
+      <div>
+        <label for="neighborhood_id_2_box">
+          Neighborhood id 2
+        </label>
+
+        <input type="text" id="neighborhood_id_2_box" name="query_neighborhood_id_2" value="<%= @the_reason.neighborhood_id_2 %>">
+      </div>
+
+      <button>
+        Update reason
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
