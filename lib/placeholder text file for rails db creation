@@ -1,0 +1,8 @@
+rails generate draft:resource <MODEL_NAME_SINGULAR> <COLUMN_1_NAME>:<COLUMN_1_DATATYPE> <COLUMN_2_NAME>:<COLUMN_2_DATATYPE> # etc
+
+
+rails generate draft:resource neighborhood name:string city_id:int description:string link:string lat:float lng:float
+rails generate draft:resource city name:string state:string description:string link:string lat:float lng:float 
+rails generate draft:resource city_neighborhood city_id:int neighborhood_id:int 
+rails generate draft:resource reason user_id:int description:string metaphor_id:int upvotes:int downvotes:int
+rails generate draft:resource metaphor start_neighborhood_id:int metaphor_neighborhood_id:int
