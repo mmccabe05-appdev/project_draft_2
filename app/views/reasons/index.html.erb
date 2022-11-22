@@ -15,60 +15,64 @@
     </h2>
 
     <form action="/insert_reason" method="post">
-      <div>
+      <!-- <div>
         <label for="user_id_box">
           User
         </label>
 
         <input type="text" id="user_id_box" name="query_user_id">
-      </div>
+      </div> -->
 
-      <div>
-        <label for="description_box">
-          Description
-        </label>
 
-        <input type="text" id="description_box" name="query_description">
-      </div>
 
-      <div>
-        <label for="link_box">
-          Link
-        </label>
-
-        <input type="text" id="link_box" name="query_link">
-      </div>
-
-      <div>
+      <!-- <div>
         <label for="upvotes_box">
           Upvotes
         </label>
 
         <input type="text" id="upvotes_box" name="query_upvotes">
-      </div>
+      </div> -->
 
-      <div>
+      <!-- <div>
         <label for="downvotes_box">
           Downvotes
         </label>
 
         <input type="text" id="downvotes_box" name="query_downvotes">
+      </div> -->
+
+      <div>
+      <p>Pick a neighborhood</p>
+        <select id="neighborhood_id_1_box" name="query_neighborhood_id_1">
+          <% Neighborhood.all.order(:city_id).order(:name).each do |a_neighborhood| %>
+            <option value="<%= a_neighborhood.id %>"><%= a_neighborhood.city.name %> - <%= a_neighborhood.name %></option>
+          <% end %>
+        </select>
+
       </div>
 
       <div>
-        <label for="neighborhood_id_1_box">
-          Neighborhood id 1
+<p>Pick a second neighborhood</p>
+              <select id="neighborhood_id_2_box" name="query_neighborhood_id_2">
+          <% Neighborhood.all.order(:city_id).order(:name).each do |a_neighborhood| %>
+            <option value="<%= a_neighborhood.id %>"><%= a_neighborhood.city.name %> - <%= a_neighborhood.name %></option>
+          <% end %>
+        </select>
+              <div>
+        <label for="description_box">
+          <p>What makes these neighborhoods comparable?</p>
         </label>
 
-        <input type="text" id="neighborhood_id_1_box" name="query_neighborhood_id_1">
+        <textarea id="description_box" name="query_description" cols="75" rows="10" placeholder="For example, Logan Square Chicago and Fishtown in Philadelphia both have a lot of coffee shops and people walking dogs."></textarea>
       </div>
 
       <div>
-        <label for="neighborhood_id_2_box">
-          Neighborhood id 2
+        <label for="link_box">
+          Want to add a source?
         </label>
-
-        <input type="text" id="neighborhood_id_2_box" name="query_neighborhood_id_2">
+<br>
+        <input type="text" id="link_box" name="query_link">
+      </div>
       </div>
 
       <button>

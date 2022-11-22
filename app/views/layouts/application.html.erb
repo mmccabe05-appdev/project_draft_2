@@ -17,9 +17,13 @@
 
   <body>
   <nav>
-    <li><a href="/user_sign_up">sign up</a></li>
-    <li><a href="/user_sign_in">sign in</a></li>
-    <li><a href="/user_sign_out">sign out</a></li>
+    <% if @current_user != nil %>
+    Currently signed in as: <%= @current_user.first_name %> <%= @current_user.last_name %>
+        <li><a href="/user_sign_out">sign out</a></li>
+        <% else %>
+      <li><a href="/user_sign_up">sign up</a></li>
+      <li><a href="/user_sign_in">sign in</a></li>
+  <% end %>
     <li><a href="/">home</li>
     <li><a href="/neighborhoods">neighborhoods</a></li>
     <li><a href="/cities">cities</a></li>

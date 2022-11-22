@@ -13,4 +13,5 @@
 #  city_id     :integer
 #
 class Neighborhood < ApplicationRecord
+  belongs_to :city
 end

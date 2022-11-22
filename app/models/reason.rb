@@ -14,4 +14,9 @@
 #  user_id           :integer
 #
 class Reason < ApplicationRecord
+  belongs_to :user
+  validates :description, :presence => true
+  validates :neighborhood_id_1, :presence => true
+  validates :neighborhood_id_2, :presence => true
+  validates :user_id, :presence => true
 end

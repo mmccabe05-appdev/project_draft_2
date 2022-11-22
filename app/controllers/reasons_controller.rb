@@ -19,11 +19,11 @@ class ReasonsController < ApplicationController
 
   def create
     the_reason = Reason.new
-    the_reason.user_id = params.fetch("query_user_id")
+    the_reason.user_id = @current_user.id
     the_reason.description = params.fetch("query_description")
     the_reason.link = params.fetch("query_link")
-    the_reason.upvotes = params.fetch("query_upvotes")
-    the_reason.downvotes = params.fetch("query_downvotes")
+    # the_reason.upvotes = params.fetch("query_upvotes")
+    # the_reason.downvotes = params.fetch("query_downvotes")
     the_reason.neighborhood_id_1 = params.fetch("query_neighborhood_id_1")
     the_reason.neighborhood_id_2 = params.fetch("query_neighborhood_id_2")
 
