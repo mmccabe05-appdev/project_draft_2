@@ -15,6 +15,7 @@
 #
 class Reason < ApplicationRecord
   belongs_to :user
+  has_many :neighborhoods
   validates :description, :presence => true
   validates :neighborhood_id_1, :presence => true
   validates :neighborhood_id_2, :presence => true

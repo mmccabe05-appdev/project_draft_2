@@ -87,9 +87,9 @@
   <div>
     <table border="1">
       <tr>
-        <th>
+        <!-- <th>
           ID
-        </th>
+        </th> -->
 
         <th>
           User
@@ -129,16 +129,22 @@
 
         <th>
         </th>
+        <th>
+        Agree!
+        </th>
+        <th>
+        Disagree!
+        </th>
       </tr>
 
       <% @list_of_reasons.each do |a_reason| %>
       <tr>
-        <td>
+       <!--  <td>
           <%= a_reason.id %>
-        </td>
+        </td> -->
 
         <td>
-          <%= a_reason.user_id %>
+          <%= a_reason.user.first_name %> <%= a_reason.user.last_name %>
         </td>
 
         <td>
@@ -157,7 +163,7 @@
           <%= a_reason.downvotes %>
         </td>
 
-        <td>
+        <td> <!-- replace these neighborhood IDs with the actual neighborhood name --> 
           <%= a_reason.neighborhood_id_1 %>
         </td>
 
@@ -177,6 +183,8 @@
             Show details
           </a>
         </td>
+        <td><a href="reasons/upvote/<%= a_reason.id %>">Agree!</a></td>
+        <td>Disagree!</td>
       </tr>
       <% end %>
     </table>
