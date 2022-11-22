@@ -3,7 +3,7 @@ class ReasonsController < ApplicationController
     matching_reasons = Reason.all
 
     @list_of_reasons = matching_reasons.order({ :created_at => :desc })
-
+  
     render({ :template => "reasons/index.html.erb" })
   end
 
@@ -67,7 +67,18 @@ class ReasonsController < ApplicationController
       redirect_to("/reasons", { :alert => the_reason.errors.full_messages.to_sentence })
     end
   end
+  def downvote
+    the_id = params.fetch("path_id")
+    the_reason = Reason.where({ :id => the_id }).at(0)
+    the_reason.downvotes = the_reason.downvotes.to_i + 1
 
+    if the_reason.valid?
+      the_reason.save
+      redirect_to("/reasons", { :notice => "Downvote received."})
+    else
+      redirect_to("/reasons", { :alert => the_reason.errors.full_messages.to_sentence })
+    end
+  end
   def destroy
     the_id = params.fetch("path_id")
     the_reason = Reason.where({ :id => the_id }).at(0)

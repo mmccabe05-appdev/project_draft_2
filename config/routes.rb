@@ -45,6 +45,8 @@ Rails.application.routes.draw do
   
   # UPVOTE
   get("/modify_reason/upvote/:path_id", { :controller => "reasons", :action => "upvote" })
+    # DOWNVOTE
+    get("/modify_reason/downvote/:path_id", { :controller => "reasons", :action => "downvote" })
   #------------------------------
 
   # Routes for the City resource:
