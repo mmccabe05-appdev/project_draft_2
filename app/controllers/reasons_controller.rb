@@ -42,8 +42,8 @@ class ReasonsController < ApplicationController
     the_reason.user_id = params.fetch("query_user_id")
     the_reason.description = params.fetch("query_description")
     the_reason.link = params.fetch("query_link")
-    the_reason.upvotes = params.fetch("query_upvotes")
-    the_reason.downvotes = params.fetch("query_downvotes")
+    # the_reason.upvotes = params.fetch("query_upvotes")
+    # the_reason.downvotes = params.fetch("query_downvotes")
     the_reason.neighborhood_id_1 = params.fetch("query_neighborhood_id_1")
     the_reason.neighborhood_id_2 = params.fetch("query_neighborhood_id_2")
 
@@ -52,6 +52,19 @@ class ReasonsController < ApplicationController
       redirect_to("/reasons/#{the_reason.id}", { :notice => "Reason updated successfully."} )
     else
       redirect_to("/reasons/#{the_reason.id}", { :alert => the_reason.errors.full_messages.to_sentence })
+    end
+  end
+
+  def upvote
+    the_id = params.fetch("path_id")
+    the_reason = Reason.where({ :id => the_id }).at(0)
+    the_reason.upvotes = the_reason.upvotes.to_i + 1
+
+    if the_reason.valid?
+      the_reason.save
+      redirect_to("/reasons", { :notice => "Upvote received."})
+    else
+      redirect_to("/reasons", { :alert => the_reason.errors.full_messages.to_sentence })
     end
   end
 

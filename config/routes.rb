@@ -42,7 +42,9 @@ Rails.application.routes.draw do
   
   # DELETE
   get("/delete_reason/:path_id", { :controller => "reasons", :action => "destroy" })
-
+  
+  # UPVOTE
+  get("/modify_reason/upvote/:path_id", { :controller => "reasons", :action => "upvote" })
   #------------------------------
 
   # Routes for the City resource:
@@ -60,7 +62,7 @@ Rails.application.routes.draw do
   post("/modify_city/:path_id", { :controller => "cities", :action => "update" })
   
   # DELETE
-  get("/delete_city/:path_id", { :controller => "cities", :action => "destroy" })
+  # get("/delete_city/:path_id", { :controller => "cities", :action => "destroy" })
 
   #------------------------------
 
