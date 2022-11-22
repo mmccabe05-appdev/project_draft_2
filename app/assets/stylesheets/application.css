@@ -44,3 +44,12 @@ body {
 .footer {
   vertical-align:bottom 0px;
 }
+
+.notice {
+  color: green;
+  border: 1px green solid
+}
+.alert {
+  color: red;
+  border: 1px red solid
+}

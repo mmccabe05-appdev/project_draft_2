@@ -16,6 +16,21 @@
   </head>
 
   <body>
+  <nav>
+    <li><a href="/user_sign_up">sign up</a></li>
+    <li><a href="/user_sign_in">sign in</a></li>
+    <li><a href="/user_sign_out">sign out</a></li>
+    <li><a href="/">home</li>
+    <li><a href="/neighborhoods">neighborhoods</a></li>
+    <li><a href="/cities">cities</a></li>
+    <li><a href="/reasons">reasons</a></li>
+  </nav>
+  <% if notice.present? == true %>
+    <p class="notice"><%= notice %></p>
+  <% end %>
+  <% if alert.present? == true %>
+    <p class="alert"><%= alert %></p>
+  <% end %>
     <%= yield %>
 
 <br>    <a href="/">Find another metaphor</a>
