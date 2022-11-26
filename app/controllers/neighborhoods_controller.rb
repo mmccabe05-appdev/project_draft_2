@@ -23,8 +23,8 @@ class NeighborhoodsController < ApplicationController
     the_neighborhood.city_id = params.fetch("query_city_id")
     the_neighborhood.description = params.fetch("query_description")
     the_neighborhood.wiki_link = params.fetch("query_wiki_link")
-    the_neighborhood.lat = params.fetch("query_lat")
-    the_neighborhood.lng = params.fetch("query_lng")
+    # the_neighborhood.lat = params.fetch("query_lat")
+    # the_neighborhood.lng = params.fetch("query_lng")
 
     if the_neighborhood.valid?
       the_neighborhood.save

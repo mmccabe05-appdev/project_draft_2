@@ -17,7 +17,7 @@
     <form action="/insert_neighborhood" method="post">
       <div>
         <label for="name_box">
-          Name
+          Neighborhood Name
         </label>
 
         <input type="text" id="name_box" name="query_name">
@@ -28,7 +28,12 @@
           City
         </label>
 
-        <input type="text" id="city_id_box" name="query_city_id">
+        <select id="city_id_box" name="query_city_id">
+          <% City.all.each do |a_city| %>
+
+          <option value="<%= a_city.id %>"><%= a_city.name %></option>
+          <% end %>
+        </select>
       </div>
 
       <div>
@@ -47,21 +52,7 @@
         <input type="text" id="wiki_link_box" name="query_wiki_link">
       </div>
 
-      <div>
-        <label for="lat_box">
-          Lat
-        </label>
 
-        <input type="text" id="lat_box" name="query_lat">
-      </div>
-
-      <div>
-        <label for="lng_box">
-          Lng
-        </label>
-
-        <input type="text" id="lng_box" name="query_lng">
-      </div>
 
       <button>
         Create neighborhood
@@ -126,7 +117,7 @@
         </td>
 
         <td>
-          <%= a_neighborhood.city_id %>
+          <%= a_neighborhood.city.name %>
         </td>
 
         <td>

@@ -3,11 +3,10 @@
 </div>
 
 <div class="metaphor_selector">
-  <h2>the 
-Logan Square (Chicago)<br> of 
-    <br>Philadelphia<br>
+  <h2><%= @metaphor_neighborhood.name %> (<%= @metaphor_neighborhood.city.name %>) <br> of 
+    <br><%= @target_city.name %><br>
       <br>
-    is<br><br> FISHTOWN </h2>
+    is<br><br> <%= @result_neighborhood %> </h2>
 </div>
 
 <div class="reasons">

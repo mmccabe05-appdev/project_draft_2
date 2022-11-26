@@ -15,4 +15,8 @@
 class Neighborhood < ApplicationRecord
   belongs_to :city
   belongs_to :reasons
+  validates :name, :presence => true
+  # validates :name, :uniqueness => true
+  validates(:name, { :uniqueness => { :scope => [:city_id] } })
+
 end
