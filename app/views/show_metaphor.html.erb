@@ -3,43 +3,53 @@
 </div>
 
 <div class="metaphor_selector">
-  <h2><%= @metaphor_neighborhood.name %> (<%= @metaphor_neighborhood.city.name %>) <br> of 
+  <h2>the <i><%= @metaphor_neighborhood.name %></i> (<%= @metaphor_neighborhood.city.name %>) <br> of 
     <br><%= @target_city.name %><br>
       <br>
-    is<br><br> <%= @result_neighborhood %> </h2>
+    is<br><br> INSERT FINAL NEIGHBORHOOD NAME </h2>
 </div>
+All reasons that include <%= @metaphor_neighborhood.name %> as one of the neighborhood_id_1 or neighborhood_id_2
+<br>
+<%= @all_reasons %>
+<br>
+<%= @all_reasons_2 %>
 
 <div class="reasons">
   <h2>because...</h2>
+
+  This table currently just spits out the @all_reasons table (reasons that include the <%= @metaphor_neighborhood.name %> neighborhood in the neighborhood_id_1 column), still need to figure out how to combine them together...
 <table class="reasons_table">
 <tr>
 <td>
   <table border=1 class="reasons_table">
     <tr>
-      <td>User submitted reason</td>
+      <td><%= @metaphor_neighborhood.name %> is like....</td>
+      <td>because...</td>
       <td>^^ upvote ^^</td>
       <td>\ \ disagree</td>
+      <td>details</td>
       
   </tr>
-  <tr>
-    <td>example reason #1</td>
-     <td>^^ upvote ^^</td>
-      <td>\ \ disagree</td>
-      </tr>
-       <tr>
-    <td>example reason #1</td>
-     <td>^^ upvote ^^</td>
-      <td>\ \ disagree</td>
-      </tr>
+  <% @all_reasons.each do |a_reason| %>
+    <tr>
+
+    <!-- working on pulling the city name through the reason... --> 
+    <!-- <#%= City.where(:id=>Neighborhood.where(:city_id=>a_reason.neighborhood_id_2)).at(0) %> -->
+  <!-- <#%= a_reason.neighborhood_id_2.neighborhood.city %> -->
+
+      <td><%= Neighborhood.where(:id=>a_reason.neighborhood_id_2).at(0).name %> in CITY NAME FOR THE IDENTIFIED NEIGHBORHOOD</td>
+      <td><%= a_reason.description %></td>
+      <td><%= a_reason.upvotes %> ^^ upvote ^^</td>
+        <td>\ \ disagree</td>
+        <td><a href="/reasons/<%= a_reason.id %>">
+            Show details
+          </a></td>
+        </tr>
+  <% end %>
+       
   </table>
 </td>
-<td>
-Add your own reason:
-<form>
-  <textarea>example</textarea><br>
-  <button>submit reason</button>
-  </form>
-</td>
+
 </tr>
 </table>
 </div>

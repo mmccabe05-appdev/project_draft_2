@@ -14,4 +14,5 @@
 #
 class City < ApplicationRecord
   has_many :neighborhoods
+  # has_many :reasons :through => Neighborhood
 end
