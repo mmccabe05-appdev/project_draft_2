@@ -13,6 +13,7 @@ All reasons that include <%= @metaphor_neighborhood.name %> as one of the neighb
 <%= @all_reasons %>
 <br>
 <%= @all_reasons_2 %>
+<h1><%= @target_neighborhood %></h1> references to logan square
 
 <div class="reasons">
   <h2>because...</h2>
@@ -25,8 +26,8 @@ All reasons that include <%= @metaphor_neighborhood.name %> as one of the neighb
     <tr>
       <td><%= @metaphor_neighborhood.name %> is like....</td>
       <td>because...</td>
-      <td>^^ upvote ^^</td>
-      <td>\ \ disagree</td>
+      <td>+1</td>
+      <td>-1</td>
       <td>details</td>
       
   </tr>
@@ -39,8 +40,8 @@ All reasons that include <%= @metaphor_neighborhood.name %> as one of the neighb
 
       <td><%= Neighborhood.where(:id=>a_reason.neighborhood_id_2).at(0).name %> in CITY NAME FOR THE IDENTIFIED NEIGHBORHOOD</td>
       <td><%= a_reason.description %></td>
-      <td><%= a_reason.upvotes %> ^^ upvote ^^</td>
-        <td>\ \ disagree</td>
+      <td><%= a_reason.upvotes %> (+1)</td>
+        <td> (-1)</td>
         <td><a href="/reasons/<%= a_reason.id %>">
             Show details
           </a></td>
