@@ -22,4 +22,13 @@ class Reason < ApplicationRecord
   validates :neighborhood_id_1, :presence => true
   validates :neighborhood_id_2, :presence => true
   validates :user_id, :presence => true
+
+  # This is what worked when I had it inline in the HTML page
+  # <%= City.where(:id=>Neighborhood.where(:id=>a_reason.neighborhood_id_2).at(0).city_id).at(0).name %>
+  attr_accessor(:city)
+
+  def city
+    city = City.where(:id => Neighborhood.where(:id => self.neighborhood_id_2).at(0).city_id).at(0)
+    return city
+  end
 end

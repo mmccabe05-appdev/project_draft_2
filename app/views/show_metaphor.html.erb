@@ -8,17 +8,44 @@
       <br>
     is<br><br> INSERT FINAL NEIGHBORHOOD NAME </h2>
 </div>
-All reasons that include <%= @metaphor_neighborhood.name %> as one of the neighborhood_id_1 or neighborhood_id_2
-<br>
-<%= @all_reasons %>
-<br>
-<%= @all_reasons_2 %>
+
 <h1><%= @target_neighborhood %></h1> references to logan square
 
 <div class="reasons">
   <h2>because...</h2>
+REASONS WHY <%= @metaphor_neighborhood.name %> IS LIKE TARGET NEIGHBORHOOD ONLY
+  <table border=1 class="reasons_table">
+    <tr>
+      <td><%= @metaphor_neighborhood.name %> is like....</td>
+      <td>because...</td>
+      <td>+1</td>
+      <td>-1</td>
+      <td>details</td>
+      
+  </tr>
+  <% @all_reasons.all do |a_reason| %>
+    <tr>
 
-  This table currently just spits out the @all_reasons table (reasons that include the <%= @metaphor_neighborhood.name %> neighborhood in the neighborhood_id_1 column), still need to figure out how to combine them together...
+    <!-- working on pulling the city name through the reason... --> 
+    <!-- <#%= City.where(:id=>Neighborhood.where(:city_id=>a_reason.neighborhood_id_2)).at(0) %> -->
+  <!-- <#%= a_reason.neighborhood_id_2.neighborhood.city %> -->
+
+      <td><%= Neighborhood.where(:id=>a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
+      <td><%= a_reason.description %></td>
+      <td><%= a_reason.upvotes %> (+1)</td>
+        <td> (-1)</td>
+        <td><a href="/reasons/<%= a_reason.id %>">
+            Show details
+          </a></td>
+        </tr>
+  <% end %>
+       
+  </table>
+
+
+
+
+<p>People also said Fishtown is like...</p>
 <table class="reasons_table">
 <tr>
 <td>
@@ -31,14 +58,14 @@ All reasons that include <%= @metaphor_neighborhood.name %> as one of the neighb
       <td>details</td>
       
   </tr>
-  <% @all_reasons.each do |a_reason| %>
+  <% @all_reasons.all do |a_reason| %>
     <tr>
 
     <!-- working on pulling the city name through the reason... --> 
     <!-- <#%= City.where(:id=>Neighborhood.where(:city_id=>a_reason.neighborhood_id_2)).at(0) %> -->
   <!-- <#%= a_reason.neighborhood_id_2.neighborhood.city %> -->
 
-      <td><%= Neighborhood.where(:id=>a_reason.neighborhood_id_2).at(0).name %> in CITY NAME FOR THE IDENTIFIED NEIGHBORHOOD</td>
+      <td><%= Neighborhood.where(:id=>a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
       <td><%= a_reason.description %></td>
       <td><%= a_reason.upvotes %> (+1)</td>
         <td> (-1)</td>
