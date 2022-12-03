@@ -25,9 +25,15 @@ class Neighborhood < ApplicationRecord
   has_many :other_neighborhoods_1, through: :reasons_as_1, source: :neighborhood_2
   has_many :other_neighborhoods_2, through: :reasons_as_2, source: :neighborhood_1
 
+  def all_reasons
+    reason_ids = self.reasons_as_1.pluck(:id) + self.reasons_as_2.pluck(:id)
+
+    return Reason.where(id: reason_ids)
+  end
+
   def other_neighborhoods
     other_neighborhood_ids = self.other_neighborhoods_1.pluck(:id) + self.other_neighborhoods_2.pluck(:id)
 
-    Neighborhood.where(id: other_neighborhood_ids)
+    return Neighborhood.where(id: other_neighborhood_ids)
   end
 end

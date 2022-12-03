@@ -7,17 +7,56 @@
     is<br><br> INSERT FINAL NEIGHBORHOOD NAME </h2>
 </div> 
 <br>
-Acceptable neighborhood variable: <%= @acceptable_neighborhoods %>
-<br>
-Acceptable neighborhood IDs variable: <%= @acceptable_neighborhood_ids %>
-<br>
-All reasons <%= @all_reasons %>
-<br>
-Target city reasons <%= @target_city_reasons %>
+
+<%= @target_city.name %> is comparable to 
+<% @metaphor_neighborhood.other_neighborhoods.where(:city_id=>@target_city.id).each do |a_neighborhood| %>
+<%= a_neighborhood.name %> and  
+<% end %> ... in 
+<%= @target_city.name %>
+
+because...
+<hr>
+<%= Reason.where() %>
+
+<ul>
+<% @metaphor_neighborhood.reasons_as_1.each do |reason| %>
+  <li><%= reason %></li>
+<% end %>
+<% @metaphor_neighborhood.reasons_as_2.each do |reason| %>
+  <li><%= reason %></li>
+<% end %>
+</ul>
 
 
-<h1><%= @target_neighborhood %></h1> references to logan square
 
+
+<hr>
+ <table border=1>
+    <tr>
+      <th><%= @metaphor_neighborhood.name %> is like....</th>
+      <th>because...</th>
+      <th>+1</th>
+      <th>-1</th>
+      <th>details</th>
+      
+  </tr>
+<% @all_reasons.order(:upvotes=>:desc).each do |a_reason| %>
+    <tr>
+
+      <td><%= Neighborhood.where(:id=>a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
+      <td><%= a_reason.description %></td>
+      <td><%= a_reason.upvotes %> (+1)</td>
+        <td> (-1)</td>
+        <td><a href="/reasons/<%= a_reason.id %>">
+            Show details
+          </a></td>
+        </tr>
+  <% end %>
+       
+  </table>
+
+
+<hr><hr><hr><hr>
 <div class="reasons">
   <h2>because...</h2>
 REASONS WHY <%= @metaphor_neighborhood.name %> IS LIKE TARGET NEIGHBORHOOD ONLY

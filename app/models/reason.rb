@@ -15,10 +15,13 @@
 #
 class Reason < ApplicationRecord
   belongs_to :user
-  belongs_to :city
+  
   belongs_to :neighborhood_1, class_name: "Neighborhood", foreign_key: :neighborhood_id_1
   belongs_to :neighborhood_2, class_name: "Neighborhood", foreign_key: :neighborhood_id_2
-  
+
+  has_one :city_1, through: :neighborhood_1, source: :city
+  has_one :city_2, through: :neighborhood_2, source: :city
+
   # has_many :neighborhoods
   validates :description, :presence => true
   validates :neighborhood_id_1, :presence => true
