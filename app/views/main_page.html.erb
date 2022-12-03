@@ -1,19 +1,21 @@
 <div class="welcome">
   <h1>welcome to metaphor</h1>
 </div>
-
+<br>
 <div class="metaphor_selector">
   <h2>the 
+  <div>
   <form action="/metaphor">
-    <select name="query_neighborhood">
+    <select name="query_neighborhood" class="dropdown">
      <% Neighborhood.all.order(:city_id).order(:name).each do |a_neighborhood| %>
             <option value="<%= a_neighborhood.id %>"><%= a_neighborhood.city.name %> - <%= a_neighborhood.name %></option>
           <% end %>
       <!-- create a Do loop that populates the menu options from the database, populate values with neighborhood.id and text with neighborhood.name -->
 
     </select>
+    </div>
     of 
-   
+   <div>
       <select name="query_city">
             <!-- create a Do loop that populates the menu options from the database, populate values with city.id and text with city.name -->
 
@@ -22,8 +24,9 @@
           <option value="<%= a_city.id %>"><%= a_city.name %></option>
           <% end %>
       </select>
+      </div>
   <br>
-    is ____________ </h2>
-    <button>find out..</button>
+    is ... </h2>
+    <button class="btn btn-primary">find out..</button>
   </form>
 </div>

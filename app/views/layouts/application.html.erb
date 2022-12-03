@@ -11,34 +11,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 
   </head>
 
   <body>
-  <nav>
-    <% if @current_user != nil %>
-    Currently signed in as: <%= @current_user.first_name %> <%= @current_user.last_name %>
-        <li><a href="/user_sign_out">sign out</a></li>
-        <% else %>
-      <li><a href="/user_sign_up">sign up</a></li>
-      <li><a href="/user_sign_in">sign in</a></li>
-  <% end %>
-    <li><a href="/">home</li>
-    <li><a href="/neighborhoods">neighborhoods</a></li>
-    <li><a href="/cities">cities</a></li>
-    <li><a href="/reasons">reasons</a></li>
-  </nav>
+
+  <nav class="navbar navbar-expand-lg bg-light ">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Metaphor</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/neighborhoods">Neighborhoods</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cities">Cities</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/reasons">Reasons</a>
+        </li>
+
+
+        <li class="nav-item">
+          <% if @current_user != nil %>
+            <a class="nav-link">Currently signed in as: <%= @current_user.first_name %> <%= @current_user.last_name %></a>
+                <li><a href="/user_sign_out" class="nav-link">sign out</a></li>
+          <% else %>
+              <li><a href="/user_sign_up" class="nav-link">sign up</a></li>
+              <li><a href="/user_sign_in" class="nav-link">sign in</a></li>
+          <% end %>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
   <% if notice.present? == true %>
-    <p class="notice"><%= notice %></p>
+    <p class="alert alert-primary w-25 mx-auto"><%= notice %></p>
   <% end %>
   <% if alert.present? == true %>
-    <p class="alert"><%= alert %></p>
+    <p class="alert alert-danger w-25 mx-auto"><%= alert %></p>
   <% end %>
-    <%= yield %>
 
-<br>    <a href="/">Find another metaphor</a>
-<br><br><br><br>
+<div class="container">
+
+    <%= yield %>
+</div>
+<br>
+<br>
+<br>
+<br>
+
 <div class="footer"><i>Note: this is an early concept test, future versions will have much more functionality</i></div>
+</div>
   </body>
 </html>
