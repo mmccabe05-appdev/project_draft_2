@@ -13,7 +13,7 @@
 <%= a_neighborhood.name %> and  
 <% end %> ... in 
 <%= @target_city.name %>
-
+Neighborhood.first.all_reasons.joins(:city_1, :city_2).where(city_1: { id: 2 }).or(Neighborhood.first.all_reasons.joins(:city_1, :city_2).where(city_2: { id: 2 }))
 because...
 <hr>
 <%= Reason.where() %>
