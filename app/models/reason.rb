@@ -16,7 +16,9 @@
 class Reason < ApplicationRecord
   belongs_to :user
   belongs_to :city
-  belongs_to :neighborhood
+  belongs_to :neighborhood_1, class_name: "Neighborhood", foreign_key: :neighborhood_id_1
+  belongs_to :neighborhood_2, class_name: "Neighborhood", foreign_key: :neighborhood_id_2
+  
   # has_many :neighborhoods
   validates :description, :presence => true
   validates :neighborhood_id_1, :presence => true
