@@ -30,10 +30,16 @@ class Reason < ApplicationRecord
 
   # This is what worked when I had it inline in the HTML page
   # <%= City.where(:id=>Neighborhood.where(:id=>a_reason.neighborhood_id_2).at(0).city_id).at(0).name %>
-  attr_accessor(:city)
+  # attr_accessor(:city)
 
   def city
     city = City.where(:id => Neighborhood.where(:id => self.neighborhood_id_2).at(0).city_id).at(0)
     return city
   end
+
+  def net_votes
+    net_votes = self.upvotes - self.downvotes
+    return net_votes
+  end
+
 end

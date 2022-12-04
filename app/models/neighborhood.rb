@@ -31,9 +31,19 @@ class Neighborhood < ApplicationRecord
     return Reason.where(id: reason_ids)
   end
 
+  # def target_city_reasons_only
+  #   # created an array with only reasons that match the current neighborhood in id 1 or 2
+  #   reason_ids = self.reasons_as_1.pluck(:id) + self.reasons_as_2.pluck(:id)
+
+  #   # create an array where 
+
+  #   return Reason.where(id: reason_ids)
+  # end
+
   def other_neighborhoods
     other_neighborhood_ids = self.other_neighborhoods_1.pluck(:id) + self.other_neighborhoods_2.pluck(:id)
 
     return Neighborhood.where(id: other_neighborhood_ids)
   end
+
 end

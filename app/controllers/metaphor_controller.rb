@@ -10,10 +10,16 @@ class MetaphorController < ApplicationController
     @target_city = City.where(:id => params.fetch("query_city").to_i).at(0)
 
     # find all reasons where the first or second neighborhood ID matches the @metaphor_neighborhood
-    @all_reasons = Reason.where(:neighborhood_id_1 => @metaphor_neighborhood.id).or(Reason.where(:neighborhood_id_2 => @metaphor_neighborhood.id)).all
+    @all_reasons = @metaphor_neighborhood.all_reasons # Reason.where(:neighborhood_id_1 => @metaphor_neighborhood.id).or(Reason.where(:neighborhood_id_2 => @metaphor_neighborhood.id)).all
 
     #build a dummy variable just to limit the target neighborhoods to ones that have a city id from the target city
     @acceptable_neighborhoods = Neighborhood.where(:city_id => @target_city.id)
+    @acceptable_neighborhood_ids = @acceptable_neighborhoods.pluck(:id)
+
+    @target_city_reasons = @metaphor_neighborhood.all_reasons.where(:neighborhood_id_1 => @acceptable_neighborhood_ids).or(@metaphor_neighborhood.all_reasons.where(:neighborhood_id_2 => @acceptable_neighborhood_ids))
+
+
+    # .or(:neighborhood_id_2=>@acceptable_neighborhood_ids)
 
     # create an array to receive acceptable neighborhood ids
     @acceptable_neighborhood_ids = Array.new
@@ -29,21 +35,21 @@ class MetaphorController < ApplicationController
     @target_city_reasons = @all_reasons.where(:neighborhood_id_1 => @acceptable_neighborhood_ids).or(Reason.where(:neighborhood_id_2 => @acceptable_neighborhood_ids)).all
 
     # upvote tally work...
-    total_city_upvotes = [0, 0, 0, 0, 0, 0, 0, 0]
-    total_city_downvotes = [0, 0, 0, 0, 0, 0, 0, 0]
-    total_city_netvotes = [0, 0, 0, 0, 0, 0, 0, 0]
+    # total_city_upvotes = [0, 0, 0, 0, 0, 0, 0, 0]
+    # total_city_downvotes = [0, 0, 0, 0, 0, 0, 0, 0]
+    # total_city_netvotes = [0, 0, 0, 0, 0, 0, 0, 0]
 
-    @all_reasons.each do |a_reason|
-      total_city_upvotes[a_reason.city.id.to_i] = total_city_upvotes[a_reason.city.id.to_i] + a_reason.upvotes
-      total_city_downvotes[a_reason.city.id.to_i] = total_city_upvotes[a_reason.city.id.to_i] + a_reason.downvotes
-    end
+    # @all_reasons.each do |a_reason|
+    #   total_city_upvotes[a_reason.city.id.to_i] = total_city_upvotes[a_reason.city.id.to_i] + a_reason.upvotes
+    #   total_city_downvotes[a_reason.city.id.to_i] = total_city_upvotes[a_reason.city.id.to_i] + a_reason.downvotes
+    # end
 
     #calculate total netvotes
-    count = 0
-    if count < total_city_upvotes.length
-      total_city_netvotes[count] = total_city_upvotes[count] - total_city_downvotes[count]
-      count = count + 1
-    end
+    # count = 0
+    # if count < total_city_upvotes.length
+    #   total_city_netvotes[count] = total_city_upvotes[count] - total_city_downvotes[count]
+    #   count = count + 1
+    # end
 
     # @target_neighborhood_reasons
     # create a hash for each neighborhood that fills :orig_neighborhood :compared_neighborhood :upvotes :downvotes :net_votes

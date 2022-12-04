@@ -4,20 +4,39 @@
   <h2>the <i><%= @metaphor_neighborhood.name %></i> (<%= @metaphor_neighborhood.city.name %>) <br> of 
     <br><%= @target_city.name %><br>
       <br>
-    is<br><br> INSERT FINAL NEIGHBORHOOD NAME </h2>
+    is<br><br>     <%= @target_city_reasons.order(:upvotes=>"desc").first.neighborhood_2.name %>
+ </h2>
+
+    Top reason? <br><%= @target_city_reasons.order(:upvotes=>"desc").first.description %>
+
 </div> 
 <br>
 
-<%= @target_city.name %> is comparable to 
+People also said that <%= @metaphor_neighborhood.name %> (<%= @metaphor_neighborhood.city.name %>) is comparable to 
 <% @metaphor_neighborhood.other_neighborhoods.where(:city_id=>@target_city.id).each do |a_neighborhood| %>
 <%= a_neighborhood.name %> and  
 <% end %> ... in 
 <%= @target_city.name %>
-Neighborhood.first.all_reasons.joins(:city_1, :city_2).where(city_1: { id: 2 }).or(Neighborhood.first.all_reasons.joins(:city_1, :city_2).where(city_2: { id: 2 }))
+because..
+<% @target_city_reasons.each do |a_reason| %>
+<li><%= a_reason.neighborhood_1.name %> and <%= a_reason.neighborhood_2.name %> <%= a_reason.description %></li> 
+<% end %>
+
+<br><br><br><br><br><br>
+<HR>
+ACCEPTABLE NEIGHBROHOODDs
+<%= @acceptable_neighborhood_ids %>
+
+
+<!-- Query string that Raghu helped me write -->
+Query string that Raghu helped me write
+
+<% Neighborhood.first.all_reasons.joins(:city_1, :city_2).where(city_1: { id: 2 }).or(Neighborhood.first.all_reasons.joins(:city_1, :city_2).where(city_2: { id: 2 })).each do |reason| %>
+<li><%= reason.description %> (net votes: <%= reason.net_votes %>)</li>
+<% end %>
 because...
 <hr>
-<%= Reason.where() %>
-
+insert stuff here
 <ul>
 <% @metaphor_neighborhood.reasons_as_1.each do |reason| %>
   <li><%= reason %></li>
@@ -35,8 +54,9 @@ because...
     <tr>
       <th><%= @metaphor_neighborhood.name %> is like....</th>
       <th>because...</th>
-      <th>+1</th>
-      <th>-1</th>
+      <th>Upvotes</th>
+      <th>Downvotes</th>
+      <th>Net votes</th>
       <th>details</th>
       
   </tr>
@@ -45,8 +65,9 @@ because...
 
       <td><%= Neighborhood.where(:id=>a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
       <td><%= a_reason.description %></td>
-      <td><%= a_reason.upvotes %> (+1)</td>
-        <td> (-1)</td>
+      <td><%= a_reason.upvotes %> +</td>
+        <td><%= a_reason.downvotes %> -</td>
+        <td><%= a_reason.net_votes %></td>
         <td><a href="/reasons/<%= a_reason.id %>">
             Show details
           </a></td>
