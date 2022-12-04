@@ -62,7 +62,7 @@
         <label for="description_box">
           <p>What makes these neighborhoods comparable?</p>
         </label>
-
+        <br>
         <textarea id="description_box" name="query_description" cols="75" rows="10" placeholder="For example, Logan Square Chicago and Fishtown in Philadelphia both have a lot of coffee shops and people walking dogs."></textarea>
       </div>
 
@@ -85,7 +85,7 @@
 <hr>
 <div>
   <div>
-    <table border="1">
+    <table border="1" class="table table-striped table-hover">
       <tr>
         <!-- <th>
           ID
@@ -96,11 +96,19 @@
         </th>
 
         <th>
-          Description
+          First neighborhood
         </th>
 
         <th>
-          Link
+          Second neighborhood
+        </th>
+
+        <th>
+          Rationale
+        </th>
+
+        <th>
+          Source?
         </th>
 
         <th>
@@ -108,33 +116,18 @@
         </th>
 
         <th>
-          Downvotes
-        </th>
-
-        <th>
-          Neighborhood id 1
-        </th>
-
-        <th>
-          Neighborhood id 2
+          downvotes
         </th>
 
         <th>
           Created at
         </th>
 
-        <th>
-          Updated at
-        </th>
+
 
         <th>
         </th>
-        <th>
-        Agree!
-        </th>
-        <th>
-        Disagree!
-        </th>
+
       </tr>
 
       <% @list_of_reasons.each do |a_reason| %>
@@ -144,8 +137,16 @@
         </td> -->
 
         <td>
-          <%= a_reason.user.first_name %> <%= a_reason.user.last_name %>
+          <%= a_reason.user.first_name %> <%= a_reason.user.last_name %> said...
         </td>
+        <td> 
+          <b><%= a_reason.neighborhood_1.name %></b> in <%= a_reason.neighborhood_1.city.name %>
+        </td>
+
+        <td>
+          is like <b><%= a_reason.neighborhood_2.name %></b> in <%= a_reason.neighborhood_2.city.name %> because...
+        </td>
+
 
         <td>
           <%= a_reason.description %>
@@ -156,35 +157,25 @@
         </td>
 
         <td>
-          <%= a_reason.upvotes %>
+          +<%= a_reason.upvotes %> (<a href="/modify_reason/upvote/<%= a_reason.id %>">Agree!</a>)
         </td>
 
         <td>
-          <%= a_reason.downvotes %>
+          -<%= a_reason.downvotes %> (<a href="/modify_reason/downvote/<%= a_reason.id %>">Disagree</a>!)
         </td>
 
-        <td> <!-- replace these neighborhood IDs with the actual neighborhood name --> 
-          <%= a_reason.neighborhood_id_1 %>
-        </td>
-
-        <td>
-          <%= a_reason.neighborhood_id_2 %>
-        </td>
 
         <td>
           <%= time_ago_in_words(a_reason.created_at) %> ago
         </td>
-        <td>
-          <%= time_ago_in_words(a_reason.updated_at) %> ago
-        </td>
+
 
         <td>
           <a href="/reasons/<%= a_reason.id %>">
             Show details
           </a>
         </td>
-        <td><a href="/modify_reason/upvote/<%= a_reason.id %>">Agree!</a></td>
-        <td><a href="/modify_reason/downvote/<%= a_reason.id %>">Disagree</a>!</td>
+
       </tr>
       <% end %>
     </table>
