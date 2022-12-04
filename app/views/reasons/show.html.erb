@@ -1,161 +1,70 @@
 <div>
   <div>
-    <h1>
-      Reason #<%= @the_reason.id %> details
-    </h1>
+    <br>
+    <div class="card text-bg-light mb-3" >
+      <div class="card-header"><%= @the_reason.user.first_name %> said...</div>
+      <div class="card-body">
+        <h5 class="card-title"><%= @the_reason.neighborhood_2.name %> is the
 
-    <div>
+          "<%= @the_reason.neighborhood_1.name %>" of <%= @the_reason.neighborhood_2.city.name %> because...</h5>
+        <p class="card-text">    <%= @the_reason.description %></p>
+        <p>        <%= @the_reason.upvotes %> agreed,         <%= @the_reason.downvotes %>
+          disagreed</p>
+        <p>Source: <%= @the_reason.link %></p>
+      </div>
+    </div>
+    <h6>
+      Reason #<%= @the_reason.id %> details 
+      | Created at <%= time_ago_in_words(@the_reason.created_at) %> ago
+      | Updated at <%= time_ago_in_words(@the_reason.updated_at) %> ago
+    </h6>
+
+    <div class="flex justify-content-center">
       <div>
         <a href="/reasons">
           Go back
         </a>
+        <hr>
       </div>
 
-      <div>
-        <a href="/delete_reason/<%= @the_reason.id %>">
-          Delete reason
-        </a>
+      <% if @current_user != nil %>
+        Since you're currently signed in as: 
+        <%= @current_user.first_name %> <%= @current_user.last_name %></a> you can <a href="/delete_reason/<%= @the_reason.id %>">delete your reason</a> or edit your reason below:
+
+      <div class="flex justify-content-center">
+
+        <form action="/modify_reason/<%= @the_reason.id %>"  method="post" class="mb-3">
+
+          <input type="hidden" id="user_id_box" name="query_user_id" value="<%= @the_reason.user_id %>">
+          <br>
+          <label for="description_box">
+            New description
+          </label>
+          <br>
+          <textarea class="form-text mb-5 w-100" type="text" id="description_box" name="query_description" value="<%= @the_reason.description %>"><%= @the_reason.description %></textarea>
+          <label for="link_box">
+            New link?
+          </label>
+          <input type="text" id="link_box" name="query_link" value="<%= @the_reason.link %>">
+          <input type="hidden" id="neighborhood_id_1_box" name="query_neighborhood_id_1" value="<%= @the_reason.neighborhood_id_1 %>">
+
+          <input type="hidden" id="neighborhood_id_2_box" name="query_neighborhood_id_2" value="<%= @the_reason.neighborhood_id_2 %>">
+          <br>
+          <div class="flex justify-content-center">
+            <button class="btn btn-outline-primary w-25 ms-2 flex justify-content-center"">
+              Update reason
+            </button>
+          </div>
+        </form>
+
       </div>
+    <% else %>
+      FYI you are only able to edit your own reasons, please sign in to update them.
+    <% end %>
+    <div>
+
     </div>
-
-    <dl>
-      <dt>
-        User
-      </dt>
-      <dd>
-        <%= @the_reason.user_id %>
-      </dd>
-
-      <dt>
-        Description
-      </dt>
-      <dd>
-        <%= @the_reason.description %>
-      </dd>
-
-      <dt>
-        Link
-      </dt>
-      <dd>
-        <%= @the_reason.link %>
-      </dd>
-
-      <dt>
-        Upvotes
-      </dt>
-      <dd>
-        <%= @the_reason.upvotes %>
-      </dd>
-
-      <dt>
-        Downvotes
-      </dt>
-      <dd>
-        <%= @the_reason.downvotes %>
-      </dd>
-
-      <dt>
-        Neighborhood id 1
-      </dt>
-      <dd>
-        <%= @the_reason.neighborhood_id_1 %>
-      </dd>
-
-      <dt>
-        Neighborhood id 2
-      </dt>
-      <dd>
-        <%= @the_reason.neighborhood_id_2 %>
-      </dd>
-
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_reason.created_at) %> ago
-      </dd>
-
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_reason.updated_at) %> ago
-      </dd>
-    </dl>
   </div>
+
 </div>
-
-<hr>
-
-
-<div>
-  <div>
-    <h2>
-      Edit reason
-    </h2>
-
-    <form action="/modify_reason/<%= @the_reason.id %>"  method="post" >
-      <div>
-        <label for="user_id_box">
-          User
-        </label>
-
-        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_reason.user_id %>">
-      </div>
-
-      <div>
-        <label for="description_box">
-          Description
-        </label>
-
-        <input type="text" id="description_box" name="query_description" value="<%= @the_reason.description %>">
-      </div>
-
-      <div>
-        <label for="link_box">
-          Link
-        </label>
-
-        <input type="text" id="link_box" name="query_link" value="<%= @the_reason.link %>">
-      </div>
-
-      <div>
-        <label for="upvotes_box">
-          Upvotes
-        </label>
-
-        <input type="text" id="upvotes_box" name="query_upvotes" value="<%= @the_reason.upvotes %>">
-      </div>
-
-      <div>
-        <label for="downvotes_box">
-          Downvotes
-        </label>
-
-        <input type="text" id="downvotes_box" name="query_downvotes" value="<%= @the_reason.downvotes %>">
-      </div>
-
-      <div>
-        <label for="neighborhood_id_1_box">
-          Neighborhood id 1
-        </label>
-
-        <input type="text" id="neighborhood_id_1_box" name="query_neighborhood_id_1" value="<%= @the_reason.neighborhood_id_1 %>">
-      </div>
-
-      <div>
-        <label for="neighborhood_id_2_box">
-          Neighborhood id 2
-        </label>
-
-        <input type="text" id="neighborhood_id_2_box" name="query_neighborhood_id_2" value="<%= @the_reason.neighborhood_id_2 %>">
-      </div>
-
-      <button>
-        Update reason
-      </button>
-    </form>
-  </div>
 </div>
-
-<hr>
