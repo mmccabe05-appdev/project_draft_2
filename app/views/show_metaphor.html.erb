@@ -1,19 +1,17 @@
-<br><br>
-
-<div class="metaphor_selector">
+<div class="shadow-lg p-3 mb-5 bg-body rounded text-centered">
   <h2>the <i><%= @metaphor_neighborhood.name %></i> (<%= @metaphor_neighborhood.city.name %>) <br> of 
     <br><%= @target_city.name %><br>
       <br>
-    is<br><br>     <%= @target_city_reasons.order(:upvotes=>"desc").first.neighborhood_2.name %>
+    is<br><br>     <%= @target_city_reasons.order(:upvotes => "desc").first.neighborhood_2.name %>
  </h2>
 
-    Top reason? <br><%= @target_city_reasons.order(:upvotes=>"desc").first.description %>
+    Top reason? <br><%= @target_city_reasons.order(:upvotes => "desc").first.description %>
 
 </div> 
 <br>
 
 People also said that <%= @metaphor_neighborhood.name %> (<%= @metaphor_neighborhood.city.name %>) is comparable to 
-<% @metaphor_neighborhood.other_neighborhoods.where(:city_id=>@target_city.id).each do |a_neighborhood| %>
+<% @metaphor_neighborhood.other_neighborhoods.where(:city_id => @target_city.id).each do |a_neighborhood| %>
 <%= a_neighborhood.name %> and  
 <% end %> ... in 
 <%= @target_city.name %>
@@ -22,7 +20,10 @@ because..
 <li><%= a_reason.neighborhood_1.name %> and <%= a_reason.neighborhood_2.name %> <%= a_reason.description %></li> 
 <% end %>
 
+
+
 <br><br><br><br><br><br>
+<h1>Other attempts and scrap work below here</h1>
 <HR>
 ACCEPTABLE NEIGHBROHOODDs
 <%= @acceptable_neighborhood_ids %>
@@ -60,10 +61,10 @@ insert stuff here
       <th>details</th>
       
   </tr>
-<% @all_reasons.order(:upvotes=>:desc).each do |a_reason| %>
+<% @all_reasons.order(:upvotes => :desc).each do |a_reason| %>
     <tr>
 
-      <td><%= Neighborhood.where(:id=>a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
+      <td><%= Neighborhood.where(:id => a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
       <td><%= a_reason.description %></td>
       <td><%= a_reason.upvotes %> +</td>
         <td><%= a_reason.downvotes %> -</td>
@@ -90,10 +91,10 @@ REASONS WHY <%= @metaphor_neighborhood.name %> IS LIKE TARGET NEIGHBORHOOD ONLY
       <td>details</td>
       
   </tr>
-<% @all_reasons.order(:upvotes=>:desc).each do |a_reason| %>
+<% @all_reasons.order(:upvotes => :desc).each do |a_reason| %>
     <tr>
 
-      <td><%= Neighborhood.where(:id=>a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
+      <td><%= Neighborhood.where(:id => a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
       <td><%= a_reason.description %></td>
       <td><%= a_reason.upvotes %> (+1)</td>
         <td> (-1)</td>
@@ -124,7 +125,7 @@ REASONS WHY <%= @metaphor_neighborhood.name %> IS LIKE TARGET NEIGHBORHOOD ONLY
 
   <% @all_reasons.each do |a_reason| %>
     <tr>
-      <td><%= Neighborhood.where(:id=>a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
+      <td><%= Neighborhood.where(:id => a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
       <td><%= a_reason.description %></td>
       <td><%= a_reason.upvotes %> (+1)</td>
         <td> (-1)</td>

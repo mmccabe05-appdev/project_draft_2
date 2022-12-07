@@ -1,185 +1,194 @@
-<div>
+<div class="w-100">
   <div>
     <h1>
-      List of all reasons
+      List of all reasons <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        add your own
+      </button>
+
     </h1>
   </div>
 </div>
 
-<hr>
-
-<div>
-  <div>
-    <h2>
-      Add a new reason
-    </h2>
-
-    <form action="/insert_reason" method="post">
-      <!-- <div>
-        <label for="user_id_box">
-          User
-        </label>
-
-        <input type="text" id="user_id_box" name="query_user_id">
-      </div> -->
-
-
-
-      <!-- <div>
-        <label for="upvotes_box">
-          Upvotes
-        </label>
-
-        <input type="text" id="upvotes_box" name="query_upvotes">
-      </div> -->
-
-      <!-- <div>
-        <label for="downvotes_box">
-          Downvotes
-        </label>
-
-        <input type="text" id="downvotes_box" name="query_downvotes">
-      </div> -->
-
-      <div>
-      <p>Pick a neighborhood</p>
-        <select id="neighborhood_id_1_box" name="query_neighborhood_id_1">
-          <% Neighborhood.all.order(:city_id).order(:name).each do |a_neighborhood| %>
-            <option value="<%= a_neighborhood.id %>"><%= a_neighborhood.city.name %> - <%= a_neighborhood.name %></option>
-          <% end %>
-        </select>
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Make a new comparison</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="modal-body">
+        <div >
 
-      <div>
-<p>Pick a second neighborhood</p>
-              <select id="neighborhood_id_2_box" name="query_neighborhood_id_2">
-          <% Neighborhood.all.order(:city_id).order(:name).each do |a_neighborhood| %>
-            <option value="<%= a_neighborhood.id %>"><%= a_neighborhood.city.name %> - <%= a_neighborhood.name %></option>
-          <% end %>
-        </select>
+          
+          <form action="/insert_reason" method="post">
+            <div>
+              <p>Pick a neighborhood</p>
+              <select id="neighborhood_id_1_box" name="query_neighborhood_id_1" class="form-select">
+                <% Neighborhood.all.order(:city_id).order(:name).each do |a_neighborhood| %>
+                  <option value="<%= a_neighborhood.id %>"><%= a_neighborhood.city.name %> - <%= a_neighborhood.name %></option>
+                <% end %>
+              </select>
+            </div>
+
+            <div>
+              <p>Pick a second neighborhood</p>
+              <select id="neighborhood_id_2_box" name="query_neighborhood_id_2" class="form-select">
+                <% Neighborhood.all.order(:city_id).order(:name).each do |a_neighborhood| %>
+                  <option value="<%= a_neighborhood.id %>"><%= a_neighborhood.city.name %> - <%= a_neighborhood.name %></option>
+                <% end %>
+              </select>
               <div>
-        <label for="description_box">
-          <p>What makes these neighborhoods comparable?</p>
-        </label>
-        <br>
-        <textarea id="description_box" name="query_description" cols="75" rows="10" placeholder="For example, Logan Square Chicago and Fishtown in Philadelphia both have a lot of coffee shops and people walking dogs."></textarea>
-      </div>
+                <label for="description_box">
+                  <p>What makes these neighborhoods comparable?</p>
+                </label>
+                <br>
+                <textarea id="description_box" name="query_description" class="form-control" rows="10" placeholder="For example, Logan Square Chicago and Fishtown in Philadelphia both have a lot of coffee shops and people walking dogs."></textarea>
+              </div>
 
-      <div>
-        <label for="link_box">
-          Want to add a source?
-        </label>
-<br>
-        <input type="text" id="link_box" name="query_link">
-      </div>
-      </div>
+              <div>
+                <label for="link_box">
+                  Want to add a source?
+                </label>
+                <br>
+                <input type="text" id="link_box" name="query_link" class="form-control">
+              </div>
+            </div>
+      
+            <div class="modal-footer">
 
-      <button>
-        Create reason
-      </button>
-    </form>
-  </div>
+              <button class="btn btn-primary m-2">
+                Create reason
+              </button>        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </form>
+          </div>
+        </div>
 </div>
+      </div>
+    </div>
+  </div>
 
-<hr>
-<div>
+  <hr>
+  <div class="w-100">
+    <div class="w-100">
+      <div class="row row-cols-1 row-cols-lg-4 g-3">
+        <% @list_of_reasons.order(:upvotes=>"asc").each do |a_reason| %>
+          <div class="col">
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+              <div class="card-header"><%= a_reason.user.first_name %> <%= a_reason.user.last_name %> said...</div>
+              <div class="card-body text-dark">
+                <h5 class="card-title"><b><a href="/neighborhoods/<%= a_reason.neighborhood_1.id %>"><%= a_reason.neighborhood_1.name %></a></b> in <%= a_reason.neighborhood_1.city.name %> is like <b><%= a_reason.neighborhood_2.name %></b> in <%= a_reason.neighborhood_2.city.name %> because...</h5>
+                <p class="card-text"><%= a_reason.description %></p>
+                <p>Source: <%= a_reason.link %></p>
+                <p>Votes:
+                +<%= a_reason.upvotes %> | -<%= a_reason.downvotes %></p>
+                <p><a href="/modify_reason/upvote/<%= a_reason.id %>">Agree!</a> <a href="/modify_reason/downvote/<%= a_reason.id %>">Disagree</a>!</p>
+
+                
+              </div><div class="card-footer">
+                  Submitted: <%= time_ago_in_words(a_reason.created_at) %> ago | <a href="/reasons/<%= a_reason.id %>">Show details</a></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
   <div>
-    <table border="1" class="table table-striped table-hover">
-      <tr>
-        <!-- <th>
+    <div>
+      <table border="1" class="table table-striped table-hover">
+        <tr>
+          <!-- <th>
           ID
         </th> -->
 
-        <th>
-          User
-        </th>
+          <th>
+            User
+          </th>
 
-        <th>
-          First neighborhood
-        </th>
+          <th>
+            First neighborhood
+          </th>
 
-        <th>
-          Second neighborhood
-        </th>
+          <th>
+            Second neighborhood
+          </th>
 
-        <th>
-          Rationale
-        </th>
+          <th>
+            Rationale
+          </th>
 
-        <th>
-          Source?
-        </th>
+          <th>
+            Source?
+          </th>
 
-        <th>
-          Upvotes
-        </th>
+          <th>
+            Upvotes
+          </th>
 
-        <th>
-          downvotes
-        </th>
+          <th>
+            downvotes
+          </th>
 
-        <th>
-          Created at
-        </th>
+          <th>
+            Created at
+          </th>
 
+          <th>
+          </th>
 
+        </tr>
 
-        <th>
-        </th>
-
-      </tr>
-
-      <% @list_of_reasons.each do |a_reason| %>
-      <tr>
-       <!--  <td>
+        <% @list_of_reasons.each do |a_reason| %>
+          <tr>
+            <!--  <td>
           <%= a_reason.id %>
         </td> -->
 
-        <td>
-          <%= a_reason.user.first_name %> <%= a_reason.user.last_name %> said...
-        </td>
-        <td> 
-          <b><%= a_reason.neighborhood_1.name %></b> in <%= a_reason.neighborhood_1.city.name %>
-        </td>
+            <td>
+              <%= a_reason.user.first_name %> <%= a_reason.user.last_name %> said...
+            </td>
+            <td>
+              <b><%= a_reason.neighborhood_1.name %></b> in <%= a_reason.neighborhood_1.city.name %>
+            </td>
 
-        <td>
-          is like <b><%= a_reason.neighborhood_2.name %></b> in <%= a_reason.neighborhood_2.city.name %> because...
-        </td>
+            <td>
+              is like <b><%= a_reason.neighborhood_2.name %></b> in <%= a_reason.neighborhood_2.city.name %> because...
+            </td>
 
+            <td>
+              <%= a_reason.description %>
+            </td>
 
-        <td>
-          <%= a_reason.description %>
-        </td>
+            <td>
+              <%= a_reason.link %>
+            </td>
 
-        <td>
-          <%= a_reason.link %>
-        </td>
+            <td>
+              +<%= a_reason.upvotes %> (<a href="/modify_reason/upvote/<%= a_reason.id %>">Agree!</a>)
+            </td>
 
-        <td>
-          +<%= a_reason.upvotes %> (<a href="/modify_reason/upvote/<%= a_reason.id %>">Agree!</a>)
-        </td>
+            <td>
+              -<%= a_reason.downvotes %> (<a href="/modify_reason/downvote/<%= a_reason.id %>">Disagree</a>!)
+            </td>
 
-        <td>
-          -<%= a_reason.downvotes %> (<a href="/modify_reason/downvote/<%= a_reason.id %>">Disagree</a>!)
-        </td>
+            <td>
+              <%= time_ago_in_words(a_reason.created_at) %> ago
+            </td>
 
+            <td>
+              <a href="/reasons/<%= a_reason.id %>">
+                Show details
+              </a>
+            </td>
 
-        <td>
-          <%= time_ago_in_words(a_reason.created_at) %> ago
-        </td>
-
-
-        <td>
-          <a href="/reasons/<%= a_reason.id %>">
-            Show details
-          </a>
-        </td>
-
-      </tr>
-      <% end %>
-    </table>
+          </tr>
+        <% end %>
+      </table>
+    </div>
   </div>
 </div>
-
 <hr>

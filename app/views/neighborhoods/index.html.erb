@@ -28,7 +28,7 @@
           City
         </label>
 
-        <select id="city_id_box" name="query_city_id" class="form-control w-25">
+        <select id="city_id_box" name="query_city_id" class="form-select w-25">
           <% City.all.each do |a_city| %>
 
           <option value="<%= a_city.id %>"><%= a_city.name %></option>
@@ -125,7 +125,10 @@
         </td>
 
         <td>
-          <%= a_neighborhood.wiki_link %>
+          <% if a_neighborhood.wiki_link.empty? %>
+          <% else %>
+          <a href="<%= a_neighborhood.wiki_link %>">link</a>
+          <% end %>
         </td>
 
         <td>
