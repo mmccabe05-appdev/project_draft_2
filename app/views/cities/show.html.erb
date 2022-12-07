@@ -1,146 +1,106 @@
 <div>
   <div>
-    <h1>
-      City #<%= @the_city.id %> details
-    </h1>
+    <a href="/cities">
+      Go back
+    </a>
+  </div>
+  <div class="card text-centered m-5 shadow-lg">
+    <div class="card-header">
+      <h1>
+        <%= @the_city.name %>
+      </h1>
+    </div>
+    <div class="row">
+      <div class="w-50">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">State: <%= @the_city.state %></li>
+          <li class="list-group-item">Description: <%= @the_city.description %></li>
+          <li class="list-group-item">Wiki link <%= @the_city.wiki_link %></li>
+          <li class="list-group-item">Lat: <%= @the_city.lat %><br>
+            Lng
 
-    <div>
-      <div>
-        <a href="/cities">
-          Go back
-        </a>
+            <%= @the_city.lng %>
+          </li>
+
+          <li class="list-group-item">Created: <%= time_ago_in_words(@the_city.created_at) %> ago | Updated <%= time_ago_in_words(@the_city.updated_at) %> ago
+          </li>
+        </ul>
       </div>
+      <div class="w-50 p-20 mt-5 text-centered">
+        Neighborhoods in <%= @the_city.name %>
+        <% @the_city.neighborhoods.order(:name=>"asc").each do |a_neighborhood| %>
+          <li><a href="/neighborhoods/<%= a_neighborhood.id %>"><%= a_neighborhood.name %></a></li>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
+  <hr>
+<!-- 
+  <div>
+    <div>
+      <h2>
+        Edit city
+      </h2>
+
+      <form action="/modify_city/<%= @the_city.id %>"  method="post" >
+        <div>
+          <label for="name_box">
+            Name
+          </label>
+
+          <input type="text" id="name_box" name="query_name" value="<%= @the_city.name %>">
+        </div>
+
+        <div>
+          <label for="state_box">
+            State
+          </label>
+
+          <input type="text" id="state_box" name="query_state" value="<%= @the_city.state %>">
+        </div>
+
+        <div>
+          <label for="description_box">
+            Description
+          </label>
+
+          <input type="text" id="description_box" name="query_description" value="<%= @the_city.description %>">
+        </div>
+
+        <div>
+          <label for="wiki_link_box">
+            Wiki link
+          </label>
+
+          <input type="text" id="wiki_link_box" name="query_wiki_link" value="<%= @the_city.wiki_link %>">
+        </div>
+
+        <div>
+          <label for="lat_box">
+            Lat
+          </label>
+
+          <input type="text" id="lat_box" name="query_lat" value="<%= @the_city.lat %>">
+        </div>
+
+        <div>
+          <label for="lng_box">
+            Lng
+          </label>
+
+          <input type="text" id="lng_box" name="query_lng" value="<%= @the_city.lng %>">
+        </div>
+
+        <button>
+          Update city
+        </button>
+      </form>
       <div>
         <a href="/delete_city/<%= @the_city.id %>">
           Delete city
         </a>
       </div>
     </div>
-
-    <dl>
-      <dt>
-        Name
-      </dt>
-      <dd>
-        <%= @the_city.name %>
-      </dd>
-
-      <dt>
-        State
-      </dt>
-      <dd>
-        <%= @the_city.state %>
-      </dd>
-
-      <dt>
-        Description
-      </dt>
-      <dd>
-        <%= @the_city.description %>
-      </dd>
-
-      <dt>
-        Wiki link
-      </dt>
-      <dd>
-        <%= @the_city.wiki_link %>
-      </dd>
-
-      <dt>
-        Lat
-      </dt>
-      <dd>
-        <%= @the_city.lat %>
-      </dd>
-
-      <dt>
-        Lng
-      </dt>
-      <dd>
-        <%= @the_city.lng %>
-      </dd>
-
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_city.created_at) %> ago
-      </dd>
-
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_city.updated_at) %> ago
-      </dd>
-    </dl>
   </div>
-</div>
-
-<hr>
-
-
-<div>
-  <div>
-    <h2>
-      Edit city
-    </h2>
-
-    <form action="/modify_city/<%= @the_city.id %>"  method="post" >
-      <div>
-        <label for="name_box">
-          Name
-        </label>
-
-        <input type="text" id="name_box" name="query_name" value="<%= @the_city.name %>">
-      </div>
-
-      <div>
-        <label for="state_box">
-          State
-        </label>
-
-        <input type="text" id="state_box" name="query_state" value="<%= @the_city.state %>">
-      </div>
-
-      <div>
-        <label for="description_box">
-          Description
-        </label>
-
-        <input type="text" id="description_box" name="query_description" value="<%= @the_city.description %>">
-      </div>
-
-      <div>
-        <label for="wiki_link_box">
-          Wiki link
-        </label>
-
-        <input type="text" id="wiki_link_box" name="query_wiki_link" value="<%= @the_city.wiki_link %>">
-      </div>
-
-      <div>
-        <label for="lat_box">
-          Lat
-        </label>
-
-        <input type="text" id="lat_box" name="query_lat" value="<%= @the_city.lat %>">
-      </div>
-
-      <div>
-        <label for="lng_box">
-          Lng
-        </label>
-
-        <input type="text" id="lng_box" name="query_lng" value="<%= @the_city.lng %>">
-      </div>
-
-      <button>
-        Update city
-      </button>
-    </form>
-  </div>
-</div>
-
-<hr>
+-->

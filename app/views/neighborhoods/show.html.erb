@@ -1,8 +1,5 @@
 <div>
   <div>
-    <h1>
-      Neighborhood #<%= @the_neighborhood.id %> details
-    </h1>
 
     <div>
       <div>
@@ -11,75 +8,36 @@
         </a>
       </div>
 
-      <div>
-        <a href="/delete_neighborhood/<%= @the_neighborhood.id %>">
-          Delete neighborhood
-        </a>
-      </div>
     </div>
 
-    <dl>
-      <dt>
-        Name
-      </dt>
-      <dd>
-        <%= @the_neighborhood.name %>
-      </dd>
+    <div class="card text-centered m-5 shadow-lg">
+      <div class="card-header">
+        <h1><%= @the_neighborhood.name %> (<a href="/cities/<%= @the_neighborhood.city_id %>"><%= @the_neighborhood.city.name %></a>) </h1>
+      </div>
 
-      <dt>
-        City
-      </dt>
-      <dd>
-        <%= @the_neighborhood.city_id %>
-      </dd>
+    <div class="row">
+      <div class="w-50">
+          <ul class="list-group list-group-flush">
+          <li class="list-group-item">Description: <%= @the_neighborhood.description %></li>
+          <li class="list-group-item">Wiki link <%= @the_neighborhood.wiki_link %></li>
+          <li class="list-group-item">Lat: <%= @the_neighborhood.lat %><br>
+            Lng
 
-      <dt>
-        Description
-      </dt>
-      <dd>
-        <%= @the_neighborhood.description %>
-      </dd>
+            <%= @the_neighborhood.lng %>
+          </li>
 
-      <dt>
-        Wiki link
-      </dt>
-      <dd>
-        <%= @the_neighborhood.wiki_link %>
-      </dd>
+          <li class="list-group-item">Created: <%= time_ago_in_words(@the_neighborhood.created_at) %> ago | Updated <%= time_ago_in_words(@the_neighborhood.updated_at) %> ago
+          </li>
+        </ul>
+        
 
-      <dt>
-        Lat
-      </dt>
-      <dd>
-        <%= @the_neighborhood.lat %>
-      </dd>
 
-      <dt>
-        Lng
-      </dt>
-      <dd>
-        <%= @the_neighborhood.lng %>
-      </dd>
-
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_neighborhood.created_at) %> ago
-      </dd>
-
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_neighborhood.updated_at) %> ago
-      </dd>
-    </dl>
+        
+</div>
   </div>
 </div>
 
 <hr>
-
 
 <div>
   <div>
@@ -142,5 +100,9 @@
     </form>
   </div>
 </div>
-
+<div>
+  <a href="/delete_neighborhood/<%= @the_neighborhood.id %>">
+    Delete neighborhood
+  </a>
+</div>
 <hr>

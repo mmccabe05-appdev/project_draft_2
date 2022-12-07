@@ -20,15 +20,15 @@
           Neighborhood Name
         </label>
 
-        <input type="text" id="name_box" name="query_name">
+        <input type="text" id="name_box" name="query_name" class="form-control w-25">
       </div>
 
       <div>
-        <label for="city_id_box">
+        <label for="city_id_box" >
           City
         </label>
 
-        <select id="city_id_box" name="query_city_id">
+        <select id="city_id_box" name="query_city_id" class="form-control w-25">
           <% City.all.each do |a_city| %>
 
           <option value="<%= a_city.id %>"><%= a_city.name %></option>
@@ -41,7 +41,7 @@
           Description
         </label>
 
-        <textarea id="description_box" name="query_description" rows="3"></textarea>
+        <textarea id="description_box" name="query_description" rows="3" class="form-control w-25"></textarea>
       </div>
 
       <div>
@@ -49,12 +49,12 @@
           Wiki link
         </label>
 
-        <input type="text" id="wiki_link_box" name="query_wiki_link">
+        <input type="text" id="wiki_link_box" name="query_wiki_link" class="form-control w-25">
       </div>
 
 
 
-      <button>
+      <button class="btn btn-primary m-2">
         Create neighborhood
       </button>
     </form>

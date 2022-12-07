@@ -15,20 +15,20 @@
     </h2>
 
     <form action="/insert_city" method="post">
-      <div>
-        <label for="name_box">
-          Name
+      <div >
+        <label for="name_box" class="form-label">
+          City Name
         </label>
 
-        <input type="text" id="name_box" name="query_name">
+        <input type="text" id="name_box" name="query_name" class="form-control w-25">
       </div>
 
-      <div>
+      <div class="w-25">
         <label for="state_box">
           State
         </label>
 
-        <input type="text" id="state_box" name="query_state">
+        <input type="text" id="state_box" name="query_state" class="form-control">
       </div>
 
       <div>
@@ -36,7 +36,7 @@
           Description
         </label>
 
-        <input type="text" id="description_box" name="query_description">
+        <textarea type="text" id="description_box" name="query_description" class="form-control w-25"></textarea>
       </div>
 
       <div>
@@ -44,27 +44,13 @@
           Wiki link
         </label>
 
-        <input type="text" id="wiki_link_box" name="query_wiki_link">
+        <input type="text" id="wiki_link_box" name="query_wiki_link" class="form-control w-25">
       </div>
 
-      <div>
-        <label for="lat_box">
-          Lat
-        </label>
 
-        <input type="text" id="lat_box" name="query_lat">
-      </div>
 
-      <div>
-        <label for="lng_box">
-          Lng
-        </label>
-
-        <input type="text" id="lng_box" name="query_lng">
-      </div>
-
-      <button>
-        Create city
+      <button class="btn btn-primary m-2">
+        Create New City
       </button>
     </form>
   </div>
