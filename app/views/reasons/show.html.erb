@@ -1,16 +1,18 @@
 <div>
   <div>
     <br>
-    <div class="card text-bg-light mb-3" >
+    <div class="card text-bg-light mb-3 shadow-lg" >
       <div class="card-header"><%= @the_reason.user.first_name %> said...</div>
-      <div class="card-body">
+      <div class="card-body text-dark">
         <h5 class="card-title"><%= @the_reason.neighborhood_2.name %> is the
 
           "<%= @the_reason.neighborhood_1.name %>" of <%= @the_reason.neighborhood_2.city.name %> because...</h5>
         <p class="card-text">    <%= @the_reason.description %></p>
+        <p>Source: <%= @the_reason.link %></p>
         <p>        <%= @the_reason.upvotes %> agreed,         <%= @the_reason.downvotes %>
           disagreed</p>
-        <p>Source: <%= @the_reason.link %></p>
+        <a href="/modify_reason/upvote/<%= @the_reason.id %>" class="btn btn-primary">Agree</a>
+        <a href="/modify_reason/downvote/<%= @the_reason.id %>" class="btn btn-warning">Disagree</a>
       </div>
     </div>
     <h6>
@@ -26,8 +28,8 @@
         </a>
         <hr>
       </div>
-
-      <% if @current_user != nil %>
+</div>
+      <% if @current_user.id == @the_reason.user.id %>
         Since you're currently signed in as: 
         <%= @current_user.first_name %> <%= @current_user.last_name %></a> you can <a href="/delete_reason/<%= @the_reason.id %>">delete your reason</a> or edit your reason below:
 
@@ -38,12 +40,12 @@
           <input type="hidden" id="user_id_box" name="query_user_id" value="<%= @the_reason.user_id %>">
           <br>
           <label for="description_box">
-            New description
+            Updated description
           </label>
           <br>
           <textarea class="form-text mb-5 w-100" type="text" id="description_box" name="query_description" value="<%= @the_reason.description %>"><%= @the_reason.description %></textarea>
           <label for="link_box">
-            New link?
+            Update the link?
           </label>
           <input type="text" id="link_box" name="query_link" value="<%= @the_reason.link %>">
           <input type="hidden" id="neighborhood_id_1_box" name="query_neighborhood_id_1" value="<%= @the_reason.neighborhood_id_1 %>">
@@ -51,7 +53,7 @@
           <input type="hidden" id="neighborhood_id_2_box" name="query_neighborhood_id_2" value="<%= @the_reason.neighborhood_id_2 %>">
           <br>
           <div class="flex justify-content-center">
-            <button class="btn btn-outline-primary w-25 ms-2 flex justify-content-center"">
+            <button class="btn btn-primary w-25 m-2 flex justify-content-center"">
               Update reason
             </button>
           </div>

@@ -75,15 +75,15 @@
       <div class="row row-cols-1 row-cols-lg-4 g-3">
         <% @list_of_reasons.order(:upvotes=>"asc").each do |a_reason| %>
           <div class="col">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card border-dark mb-3 shadow" style="max-width: 18rem;">
               <div class="card-header"><%= a_reason.user.first_name %> <%= a_reason.user.last_name %> said...</div>
               <div class="card-body text-dark">
-                <h5 class="card-title"><b><a href="/neighborhoods/<%= a_reason.neighborhood_1.id %>"><%= a_reason.neighborhood_1.name %></a></b> in <%= a_reason.neighborhood_1.city.name %> is like <b><%= a_reason.neighborhood_2.name %></b> in <%= a_reason.neighborhood_2.city.name %> because...</h5>
+                <h5 class="card-title"><b><a href="/neighborhoods/<%= a_reason.neighborhood_1.id %>"><%= a_reason.neighborhood_1.name %></a></b> in <%= a_reason.neighborhood_1.city.name %> is like <b><a href="/neighborhoods/<%= a_reason.neighborhood_2.id %>"><%= a_reason.neighborhood_2.name %></a></b> in <%= a_reason.neighborhood_2.city.name %> because...</h5>
                 <p class="card-text"><%= a_reason.description %></p>
                 <p>Source: <%= a_reason.link %></p>
                 <p>Votes:
                 +<%= a_reason.upvotes %> | -<%= a_reason.downvotes %></p>
-                <p><a href="/modify_reason/upvote/<%= a_reason.id %>">Agree!</a> <a href="/modify_reason/downvote/<%= a_reason.id %>">Disagree</a>!</p>
+                <p><a href="/modify_reason/upvote/<%= a_reason.id %>" class="btn btn-primary">Agree!</a> <a href="/modify_reason/downvote/<%= a_reason.id %>" class="btn btn-warning">Disagree</a></p>
 
                 
               </div><div class="card-footer">
