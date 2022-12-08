@@ -19,7 +19,10 @@
       <div class="w-50">
           <ul class="list-group list-group-flush">
           <li class="list-group-item">Description: <%= @the_neighborhood.description %></li>
-          <li class="list-group-item"><a href="<%= @the_neighborhood.wiki_link %>" target="new">Wikipedia link</a></li>
+          <li class="list-group-item"><% if @the_neighborhood.wiki_link.empty? %>Wikipedia link not provided
+          <% else %>
+          <a href="<%= @the_neighborhood.wiki_link %>">Wikipedia link</a>
+          <% end %></li>
           <li class="list-group-item">Lat: <%= @the_neighborhood.lat %><br>
             Lng
 
@@ -40,10 +43,12 @@
 <hr>
 
 <div>
+
+      <% if @current_user.id == 1 %>
+        Since you're currently signed in as: 
+        <%= @current_user.first_name %> <%= @current_user.last_name %></a> you can <a href="/delete_neighborhood/<%= @the_neighborhood.id %>">delete your neighborhood</a> or edit your submitted neighborhood below:
   <div class="w-50">
-    <h2>
-      Edit neighborhood
-    </h2>
+
 
     <form action="/modify_neighborhood/<%= @the_neighborhood.id %>"  method="post" >
       <div>
@@ -54,20 +59,17 @@
         <input type="text" id="name_box" name="query_name" value="<%= @the_neighborhood.name %>" class="form-control">
       </div>
 
-      <div>
-        <label for="city_id_box">
-          City
-        </label>
 
-        <input type="text" id="city_id_box" name="query_city_id" value="<%= @the_neighborhood.city_id %>">
-      </div>
+
+        <input type="hidden" id="city_id_box" name="query_city_id" value="<%= @the_neighborhood.city_id %>">
+
 
       <div>
         <label for="description_box">
           Description
         </label>
 
-        <textarea id="description_box" name="query_description"><%= @the_neighborhood.description %></textarea>
+        <textarea id="description_box" name="query_description" class="form-control"><%= @the_neighborhood.description %></textarea>
       </div>
 
       <div>
@@ -75,26 +77,20 @@
           Wiki link
         </label>
 
-        <input type="text" id="wiki_link_box" name="query_wiki_link" value="<%= @the_neighborhood.wiki_link %>">
+        <input type="text" id="wiki_link_box" name="query_wiki_link" class="form-control" value="<%= @the_neighborhood.wiki_link %>">
       </div>
 
       <div>
-        <label for="lat_box">
-          Lat
-        </label>
 
-        <input type="text" id="lat_box" name="query_lat" value="<%= @the_neighborhood.lat %>">
+        <input type="hidden" id="lat_box" name="query_lat" value="<%= @the_neighborhood.lat %>">
+
+
+
+
+        <input type="hidden" id="lng_box" name="query_lng" value="<%= @the_neighborhood.lng %>">
       </div>
 
-      <div>
-        <label for="lng_box">
-          Lng
-        </label>
-
-        <input type="text" id="lng_box" name="query_lng" value="<%= @the_neighborhood.lng %>">
-      </div>
-
-      <button>
+      <button class="btn btn-primary m-2">
         Update neighborhood
       </button>
     </form>
@@ -105,4 +101,7 @@
     Delete neighborhood
   </a>
 </div>
+    <% else %>
+      <i>FYI you are only admin are able to edit neighborhoods, please sign in as an admin to update them.</i>
+    <% end %>
 <hr>

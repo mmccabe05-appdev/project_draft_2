@@ -15,7 +15,10 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item">State: <%= @the_city.state %></li>
           <li class="list-group-item">Description: <%= @the_city.description %></li>
-          <li class="list-group-item">Wiki link <%= @the_city.wiki_link %></li>
+          <li class="list-group-item"><% if @the_city.wiki_link.empty? %>Wikipedia link not provided
+          <% else %>
+          <a href="<%= @the_city.wiki_link %>" target="new">Wikipedia link</a>
+          <% end %></li>
           <li class="list-group-item">Lat: <%= @the_city.lat %><br>
             Lng
 
@@ -28,7 +31,7 @@
       </div>
       <div class="w-50 p-20 mt-5 text-centered">
         Neighborhoods in <%= @the_city.name %>
-        <% @the_city.neighborhoods.order(:name=>"asc").each do |a_neighborhood| %>
+        <% @the_city.neighborhoods.order(:name => "asc").each do |a_neighborhood| %>
           <li><a href="/neighborhoods/<%= a_neighborhood.id %>"><%= a_neighborhood.name %></a></li>
         <% end %>
       </div>
@@ -36,71 +39,66 @@
   </div>
 
   <hr>
-<!-- 
-  <div>
+  <div class="w-50">
+    <% if @current_user.id == 1 %>
+      Since you're currently signed in as: 
+      <%= @current_user.first_name %> <%= @current_user.last_name %></a> you can <a href="/delete_city/<%= @the_city.id %>">delete your city</a> or edit your submitted city below:
     <div>
-      <h2>
-        Edit city
-      </h2>
-
-      <form action="/modify_city/<%= @the_city.id %>"  method="post" >
-        <div>
-          <label for="name_box">
-            Name
-          </label>
-
-          <input type="text" id="name_box" name="query_name" value="<%= @the_city.name %>">
-        </div>
-
-        <div>
-          <label for="state_box">
-            State
-          </label>
-
-          <input type="text" id="state_box" name="query_state" value="<%= @the_city.state %>">
-        </div>
-
-        <div>
-          <label for="description_box">
-            Description
-          </label>
-
-          <input type="text" id="description_box" name="query_description" value="<%= @the_city.description %>">
-        </div>
-
-        <div>
-          <label for="wiki_link_box">
-            Wiki link
-          </label>
-
-          <input type="text" id="wiki_link_box" name="query_wiki_link" value="<%= @the_city.wiki_link %>">
-        </div>
-
-        <div>
-          <label for="lat_box">
-            Lat
-          </label>
-
-          <input type="text" id="lat_box" name="query_lat" value="<%= @the_city.lat %>">
-        </div>
-
-        <div>
-          <label for="lng_box">
-            Lng
-          </label>
-
-          <input type="text" id="lng_box" name="query_lng" value="<%= @the_city.lng %>">
-        </div>
-
-        <button>
-          Update city
-        </button>
-      </form>
       <div>
-        <a href="/delete_city/<%= @the_city.id %>">
-          Delete city
-        </a>
+        <h2>
+          Edit city
+        </h2>
+
+        <form action="/modify_city/<%= @the_city.id %>"  method="post" >
+          <div>
+            <label for="name_box">
+              Name
+            </label>
+
+            <input type="text" id="name_box" name="query_name" value="<%= @the_city.name %>" class="form-control">
+          </div>
+
+          <div>
+            <label for="state_box">
+              State
+            </label>
+
+            <input type="text" id="state_box" name="query_state" value="<%= @the_city.state %>" class="form-control">
+          </div>
+
+          <div>
+            <label for="description_box">
+              Description
+            </label>
+
+            <textarea type="text" id="description_box" name="query_description" value="<%= @the_city.description %>" class="form-control"><%= @the_city.description %></textarea>
+          </div>
+
+          <div>
+            <label for="wiki_link_box">
+              Wiki link
+            </label>
+
+            <input type="text" id="wiki_link_box" name="query_wiki_link" value="<%= @the_city.wiki_link %>" class="form-control">
+          </div>
+
+
+            <input type="hidden" id="lat_box" name="query_lat" value="<%= @the_city.lat %>">
+
+
+
+            <input type="hidden" id="lng_box" name="query_lng" value="<%= @the_city.lng %>">
+
+
+          <button class="btn btn-primary m-2">
+            Update city
+          </button>
+        </form>
+
       </div>
     </div>
-  </div>
--->
+  <% else %>
+    <i>FYI you are only admin are able to edit neighborhoods, please sign in as an admin to update them.</i>
+  <% end %>
+</div>
+</div>

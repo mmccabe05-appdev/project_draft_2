@@ -120,7 +120,10 @@
         </td>
 
         <td>
-          <%= a_city.wiki_link %>
+          <% if a_city.wiki_link.empty? %>
+          <% else %>
+          <a href="<%= a_city.wiki_link %>" target="new">link</a>
+          <% end %>
         </td>
 
         <td>

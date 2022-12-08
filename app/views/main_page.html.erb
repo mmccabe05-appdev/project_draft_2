@@ -6,7 +6,7 @@
   <h2>the 
     <div>
       <form action="/metaphor">
-        <select name="query_neighborhood" class="form-select-lg">
+        <select name="query_neighborhood" class="form-select-lg" >
           <% Neighborhood.all.order(:city_id).order(:name).each do |a_neighborhood| %>
             <option value="<%= a_neighborhood.id %>"><%= a_neighborhood.city.name %> - <%= a_neighborhood.name %></option>
           <% end %>
