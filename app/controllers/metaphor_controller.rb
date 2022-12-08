@@ -6,13 +6,13 @@ class MetaphorController < ApplicationController
     if City.where(:id => params.fetch("query_city").to_i).at(0) == nil 
       redirect_to("/", { :alert => "Gotta choose a city!" })
     else
-
+ 
       # grab the neighborhood id from the URL
       @metaphor_neighborhood = Neighborhood.where(:id => params.fetch("query_neighborhood").to_i).at(0)
 
       # grab the target city from the URL
       @target_city = City.where(:id => params.fetch("query_city").to_i).at(0)
-
+ 
       # find all reasons where the first or second neighborhood ID matches the @metaphor_neighborhood
       @all_reasons = @metaphor_neighborhood.all_reasons # Reason.where(:neighborhood_id_1 => @metaphor_neighborhood.id).or(Reason.where(:neighborhood_id_2 => @metaphor_neighborhood.id)).all
 
@@ -20,8 +20,15 @@ class MetaphorController < ApplicationController
       @acceptable_neighborhoods = Neighborhood.where(:city_id => @target_city.id)
       @acceptable_neighborhood_ids = @acceptable_neighborhoods.pluck(:id)
 
-      @target_city_reasons = @metaphor_neighborhood.all_reasons.where(:neighborhood_id_1 => @acceptable_neighborhood_ids).or(@metaphor_neighborhood.all_reasons.where(:neighborhood_id_2 => @acceptable_neighborhood_ids))
+      @target_city_reasons = @all_reasons.where(:neighborhood_id_2 => @acceptable_neighborhood_ids).or(@all_reasons.where(:neighborhood_id_2 => @acceptable_neighborhood_ids))
+  
+      @target_city_reason_test = []
 
+      @all_reasons.each do |check_reason|
+        if @acceptable_neighborhood_ids.include?(check_reason.neighborhood_id_1) || @acceptable_neighborhood_ids.include?(check_reason.neighborhood_id_2)
+          @target_city_reason_test.push(check_reason)
+        end          
+      end 
 
       # .or(:neighborhood_id_2=>@acceptable_neighborhood_ids)
 

@@ -1,87 +1,155 @@
 <div class="shadow-lg p-3 mb-5 bg-body rounded text-centered">
-  <h2>the <i><%= @metaphor_neighborhood.name %></i> (<%= @metaphor_neighborhood.city.name %>) <br> of 
-    <br><%= @target_city.name %><br>
-      <br>
-    is<br><br>     <%= @target_city_reasons.order(:upvotes => "desc").first.neighborhood_2.name %>
- </h2>
+  <h2>the <i><%= @metaphor_neighborhood.name %></i> (<%= @metaphor_neighborhood.city.name %>) <br>
+    of 
+    <br>
+    <%= @target_city.name %><br>
+    <br>
+    is<br>
+    <br>
+    COMPARABLE NEIGHBORHOOD
+  </h2>
 
-    Top reason? <br><%= @target_city_reasons.order(:upvotes => "desc").first.description %>
-
-</div> 
+  <!-- # .order(:upvotes => "desc").first.description -->
+</div>
 <br>
+
+<h1>DEBUGGING TABLE</h1>
+
+<table border=1 class="table w-150">
+  <tr>
+    <th></th>
+    <th>If metaphor neighborhood is</th>
+    <th>and target city is</th>
+    <th>@all_reasons should be</th>
+    <th>acceptable_neighborhood_ids should be</th>
+    <th>@target_city_reasons should be</th>
+  </tr>
+  <tr>
+    <td>TARGET</td>
+    <td>Logan Square</td>
+    <td>Philadelphia</td>
+    <td>1 2 3 6 7 8 19 21 22 23 24</td>
+    <td>1 2 6</td>
+    <td>1 2 3 6 7 8 19 21 22 23 24</td>
+  </tr>
+  <tr>
+    <td>TARGET</td>
+    <td>Fishtown</td>
+    <td>Chicago</td>
+    <td>1 2 3 7 8 9 10 11 16 19 21 22 23 24 25</td>
+    <td>3 4 5 8</td>
+    <td>1 2 3 7 8 9 10 19 21 22 23 24 25<br><sub>*11 and 16 should be missing</sub></td>
+  </tr>
+    <tr>
+    <td>TARGET</td>
+    <td>Center City</td>
+    <td>Chicago</td>
+    <td>4 5 12 13 14 15 17 18 20 <br><sub>* note: reason 13, 14, 15 are CC->CC comparisons</sub></td>
+    <td>3 4 5 8</td>
+    <td>4 5 12 17 18</td>
+  </tr>
+      <tr>
+    <td>TARGET</td>
+    <td>Loop</td>
+    <td>Philadelphia</td>
+    <td>4 5 12 17 18</td>
+    <td>1 2 6</td>
+    <td>4 5 12 17 18</td>
+  </tr>
+  <tr class="table-dark">
+    <td>ACTUAL (for this particular page URL)</td>
+    <td><%= @metaphor_neighborhood.name %></td>
+    <td><%= @target_city.name %></td>
+    <td><%= @all_reasons.ids %></td>
+    <td><%= @acceptable_neighborhood_ids %></td>
+    <td><%= @target_city_reasons.ids %></td>
+  </tr>
+</table>
+<br>
+<br>
+<hr>
+<%= @target_city_reasons.order(:upvotes => "desc").first.neighborhood_2.name %>
+</h2>
+<!-- ^^ if else string to select the neighborhood_1 or neighborhood_2 that is not the @metaphor neighborhood -->
+acceptable neighborhoods: <%= @acceptable_neighborhood_ids %>
+<br>
+all reasons: <%= @all_reasons.ids %>
+<br>
+target city reasons: <%= @target_city_reasons.ids %><br>
+<br>
+target city reason test 
+<%= @target_city_reason_test.map(&:id) %>
 
 People also said that <%= @metaphor_neighborhood.name %> (<%= @metaphor_neighborhood.city.name %>) is comparable to 
 <% @metaphor_neighborhood.other_neighborhoods.where(:city_id => @target_city.id).each do |a_neighborhood| %>
-<%= a_neighborhood.name %> and  
+  <%= a_neighborhood.name %> and  
 <% end %> ... in 
 <%= @target_city.name %>
 because..
 <% @target_city_reasons.each do |a_reason| %>
-<li><%= a_reason.neighborhood_1.name %> and <%= a_reason.neighborhood_2.name %> <%= a_reason.description %></li> 
+  <li><%= a_reason.neighborhood_1.name %> and <%= a_reason.neighborhood_2.name %> <%= a_reason.description %></li>
 <% end %>
 
-
-
-<br><br><br><br><br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <h1>Other attempts and scrap work below here</h1>
 <HR>
 ACCEPTABLE NEIGHBROHOODDs
 <%= @acceptable_neighborhood_ids %>
 
-
 <!-- Query string that Raghu helped me write -->
 Query string that Raghu helped me write
 
 <% Neighborhood.first.all_reasons.joins(:city_1, :city_2).where(city_1: { id: 2 }).or(Neighborhood.first.all_reasons.joins(:city_1, :city_2).where(city_2: { id: 2 })).each do |reason| %>
-<li><%= reason.description %> (net votes: <%= reason.net_votes %>)</li>
+  <li><%= reason.description %> (net votes: <%= reason.net_votes %>)</li>
 <% end %>
 because...
 <hr>
 insert stuff here
 <ul>
-<% @metaphor_neighborhood.reasons_as_1.each do |reason| %>
-  <li><%= reason %></li>
-<% end %>
-<% @metaphor_neighborhood.reasons_as_2.each do |reason| %>
-  <li><%= reason %></li>
-<% end %>
+  <% @metaphor_neighborhood.reasons_as_1.each do |reason| %>
+    <li><%= reason %></li>
+  <% end %>
+  <% @metaphor_neighborhood.reasons_as_2.each do |reason| %>
+    <li><%= reason %></li>
+  <% end %>
 </ul>
 
-
-
-
 <hr>
- <table border=1 class="table table-striped">
-    <tr>
-      <th><%= @metaphor_neighborhood.name %> is like....</th>
-      <th>because...</th>
-      <th>Upvotes</th>
-      <th>Downvotes</th>
-      <th>Net votes</th>
-      <th>details</th>
-      
+<table border=1 class="table table-striped">
+  <tr>
+    <th><%= @metaphor_neighborhood.name %> is like....</th>
+    <th>because...</th>
+    <th>Upvotes</th>
+    <th>Downvotes</th>
+    <th>Net votes</th>
+    <th>details</th>
+
   </tr>
-<% @all_reasons.order(:upvotes => :desc).each do |a_reason| %>
+  <% @all_reasons.order(:upvotes => :desc).each do |a_reason| %>
     <tr>
 
       <td><%= Neighborhood.where(:id => a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
       <td><%= a_reason.description %></td>
       <td><%= a_reason.upvotes %> +</td>
-        <td><%= a_reason.downvotes %> -</td>
-        <td><%= a_reason.net_votes %></td>
-        <td><a href="/reasons/<%= a_reason.id %>">
-            Show details
-          </a></td>
-        </tr>
+      <td><%= a_reason.downvotes %> -</td>
+      <td><%= a_reason.net_votes %></td>
+      <td><a href="/reasons/<%= a_reason.id %>">
+          Show details
+        </a></td>
+    </tr>
   <% end %>
-       
-  </table>
 
+</table>
 
 <hr><hr><hr><hr>
 <div class="reasons">
   <h2>because...</h2>
-REASONS WHY <%= @metaphor_neighborhood.name %> IS LIKE TARGET NEIGHBORHOOD ONLY
+  REASONS WHY <%= @metaphor_neighborhood.name %> IS LIKE TARGET NEIGHBORHOOD ONLY
   <table border=1 class="reasons_table">
     <tr>
       <td><%= @metaphor_neighborhood.name %> is like....</td>
@@ -89,55 +157,54 @@ REASONS WHY <%= @metaphor_neighborhood.name %> IS LIKE TARGET NEIGHBORHOOD ONLY
       <td>+1</td>
       <td>-1</td>
       <td>details</td>
-      
-  </tr>
-<% @all_reasons.order(:upvotes => :desc).each do |a_reason| %>
-    <tr>
 
-      <td><%= Neighborhood.where(:id => a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
-      <td><%= a_reason.description %></td>
-      <td><%= a_reason.upvotes %> (+1)</td>
+    </tr>
+    <% @all_reasons.order(:upvotes => :desc).each do |a_reason| %>
+      <tr>
+
+        <td><%= Neighborhood.where(:id => a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
+        <td><%= a_reason.description %></td>
+        <td><%= a_reason.upvotes %> (+1)</td>
         <td> (-1)</td>
         <td><a href="/reasons/<%= a_reason.id %>">
             Show details
           </a></td>
-        </tr>
-  <% end %>
-       
+      </tr>
+    <% end %>
+
   </table>
 
+  <!-- place for people to upvote other reasons for other neighborhoods -->
 
-<!-- place for people to upvote other reasons for other neighborhoods -->
-
-<p>People also said Fishtown is like...</p>
-<table class="reasons_table">
-<tr>
-<td>
-  <table border=1 class="reasons_table">
+  <p>People also said Fishtown is like...</p>
+  <table class="reasons_table">
     <tr>
-      <th><%= @metaphor_neighborhood.name %> is like....</th>
-      <th>because...</th>
-      <th>+1</th>
-      <th>-1</th>
-      <th>details</th>
-      
+      <td>
+        <table border=1 class="reasons_table">
+          <tr>
+            <th><%= @metaphor_neighborhood.name %> is like....</th>
+            <th>because...</th>
+            <th>+1</th>
+            <th>-1</th>
+            <th>details</th>
+
+          </tr>
+
+          <% @all_reasons.each do |a_reason| %>
+            <tr>
+              <td><%= Neighborhood.where(:id => a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
+              <td><%= a_reason.description %></td>
+              <td><%= a_reason.upvotes %> (+1)</td>
+              <td> (-1)</td>
+              <td><a href="/reasons/<%= a_reason.id %>">
+                  Show details
+                </a></td>
+            </tr>
+          <% end %>
+        </table>
+      </td>
+    </tr>
+
   </tr>
-
-  <% @all_reasons.each do |a_reason| %>
-    <tr>
-      <td><%= Neighborhood.where(:id => a_reason.neighborhood_id_2).at(0).name %> in <%= a_reason.city.name %></td>
-      <td><%= a_reason.description %></td>
-      <td><%= a_reason.upvotes %> (+1)</td>
-        <td> (-1)</td>
-        <td><a href="/reasons/<%= a_reason.id %>">
-            Show details
-          </a></td>
-        </tr>
-  <% end %>     
-  </table>
-</td>
-</tr>
-
-</tr>
 </table>
 </div>
