@@ -67,9 +67,6 @@
     <table border="1" class="table table-striped table-hover">
       <tr>
 
-        <th>
-         City 
-        </th>
 
         <th>
           Neighborhood Name
@@ -89,15 +86,12 @@
         </th>
       </tr>
 
-      <% @list_of_neighborhoods.order(:city_id=>"asc").each do |a_neighborhood| %>
+      <% @list_of_neighborhoods.order(:name => "asc").each do |a_neighborhood| %>
       <tr>
 
-        <td>
-          <%= a_neighborhood.city.name %>
-        </td>
 
         <td>
-          <%= a_neighborhood.name %>
+          <%= a_neighborhood.name %> (<a href="/cities/<%= a_neighborhood.city.id %>"><%= a_neighborhood.city.name %></a>)
         </td>
 
         <td>
@@ -110,7 +104,6 @@
           <a href="<%= a_neighborhood.wiki_link %>">link</a>
           <% end %>
         </td>
-
 
 
         <td>

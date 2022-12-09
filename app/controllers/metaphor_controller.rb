@@ -3,8 +3,8 @@ class MetaphorController < ApplicationController
   require "json"
 
   def find_metaphor
-    if City.where(:id => params.fetch("query_city").to_i).at(0) == nil 
-      redirect_to("/", { :alert => "Gotta choose a city!" })
+    if City.where(:id => params.fetch("query_city").to_i).at(0) == nil ||  Neighborhood.where(:id => params.fetch("query_neighborhood").to_i).at(0) == nil 
+      redirect_to("/", { :alert => "Gotta choose a city and a neighborhood!" })
     else
  
       # grab the neighborhood id from the URL
@@ -20,7 +20,7 @@ class MetaphorController < ApplicationController
       @acceptable_neighborhoods = Neighborhood.where(:city_id => @target_city.id)
       @acceptable_neighborhood_ids = @acceptable_neighborhoods.pluck(:id)
 
-      @target_city_reasons = @all_reasons.where(:neighborhood_id_2 => @acceptable_neighborhood_ids).or(@all_reasons.where(:neighborhood_id_2 => @acceptable_neighborhood_ids))
+      @target_city_reasons = @all_reasons.where(:neighborhood_id_2 => @acceptable_neighborhood_ids) + @all_reasons.where(:neighborhood_id_2 => @acceptable_neighborhood_ids)
   
       @target_city_reason_test = []
 
