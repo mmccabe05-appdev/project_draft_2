@@ -3,8 +3,8 @@
 
     <div>
       <div>
-        <a href="/neighborhoods">
-          Go back
+       <%= link_to "Back", :back %> | <a href="/neighborhoods">
+          All neighborhoods
         </a>
       </div>
 
@@ -29,7 +29,7 @@
             <%= @the_neighborhood.lng %>
           </li>
 
-          <li class="list-group-item">Neighborhood ID: <%= @the_neighborhood.city_id %> | Created: <%= time_ago_in_words(@the_neighborhood.created_at) %> ago | Updated <%= time_ago_in_words(@the_neighborhood.updated_at) %> ago
+          <li class="list-group-item">Neighborhood ID: <%= @the_neighborhood.id %> | Created: <%= time_ago_in_words(@the_neighborhood.created_at) %> ago | Updated <%= time_ago_in_words(@the_neighborhood.updated_at) %> ago
           </li>
         </ul>
         

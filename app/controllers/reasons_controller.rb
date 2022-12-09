@@ -62,10 +62,12 @@ class ReasonsController < ApplicationController
 
     if the_reason.valid?
       the_reason.save
-      redirect_to("/reasons", { :notice => "Upvote received."})
+      flash[:notice] = "Upvote received."
+      redirect_back :fallback_location=>"/" #, :notice => "upvote received!"
     else
       redirect_to("/reasons", { :alert => the_reason.errors.full_messages.to_sentence })
     end
+
   end
   def downvote
     the_id = params.fetch("path_id")
@@ -74,7 +76,9 @@ class ReasonsController < ApplicationController
 
     if the_reason.valid?
       the_reason.save
-      redirect_to("/reasons", { :notice => "Downvote received."})
+      flash[:notice] = "Downvote received."
+      redirect_back :fallback_location=>"/"
+      # redirect_to("/reasons", { :notice => "Downvote received."})
     else
       redirect_to("/reasons", { :alert => the_reason.errors.full_messages.to_sentence })
     end

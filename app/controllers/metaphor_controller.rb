@@ -20,7 +20,7 @@ class MetaphorController < ApplicationController
       @acceptable_neighborhoods = Neighborhood.where(:city_id => @target_city.id)
       @acceptable_neighborhood_ids = @acceptable_neighborhoods.pluck(:id)
 
-      @target_city_reasons = @all_reasons.where(:neighborhood_id_2 => @acceptable_neighborhood_ids) + @all_reasons.where(:neighborhood_id_2 => @acceptable_neighborhood_ids)
+      @target_city_reasons = @all_reasons.where(:neighborhood_id_2 => @acceptable_neighborhood_ids).or(@all_reasons.where(:neighborhood_id_2 => @acceptable_neighborhood_ids))
   
       @target_city_reason_test = []
 

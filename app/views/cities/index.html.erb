@@ -1,15 +1,29 @@
 <div>
   <div>
     <h1>
-      List of all cities
+      List of all cities <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        add your own
+      </button>
     </h1>
   </div>
 </div>
 
-<hr>
+
 
 <div>
   <div>
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Add a new neighborhood</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div >
+              <% if @current_user.id == 1 %>
+                Since you're currently signed in as: 
+                <%= @current_user.first_name %> <%= @current_user.last_name %></a> you can 
     <h2>
       Add a new city
     </h2>
@@ -20,10 +34,10 @@
           City Name
         </label>
 
-        <input type="text" id="name_box" name="query_name" class="form-control w-25">
+        <input type="text" id="name_box" name="query_name" class="form-control ">
       </div>
 
-      <div class="w-25">
+      <div class="">
         <label for="state_box">
           State
         </label>
@@ -36,7 +50,7 @@
           Description
         </label>
 
-        <textarea type="text" id="description_box" name="query_description" class="form-control w-25"></textarea>
+        <textarea type="text" id="description_box" name="query_description" class="form-control "></textarea>
       </div>
 
       <div>
@@ -44,7 +58,7 @@
           Wiki link
         </label>
 
-        <input type="text" id="wiki_link_box" name="query_wiki_link" class="form-control w-25">
+        <input type="text" id="wiki_link_box" name="query_wiki_link" class="form-control ">
       </div>
 
 
@@ -53,6 +67,10 @@
         Create New City
       </button>
     </form>
+    <% else %>
+      Sorry, only admin can add new cities
+    <% end %></div>
+    </div></div>
   </div>
 </div>
 

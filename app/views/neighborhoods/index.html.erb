@@ -1,120 +1,134 @@
 <div>
   <div>
     <h1>
-      List of all neighborhoods
+      List of all neighborhoods <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        add your own
+      </button>
     </h1>
   </div>
 </div>
 
-<hr>
+ 
 
 <div>
+
   <div>
-    <h2>
-      Add a new neighborhood
-    </h2>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Add a new neighborhood</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div >
+              <% if @current_user.id == 1 %>
+                Since you're currently signed in as: 
+                <%= @current_user.first_name %> <%= @current_user.last_name %></a> you can 
+              <h2>
+                Add a new neighborhood
+              </h2>
 
-    <form action="/insert_neighborhood" method="post">
-      <div>
-        <label for="name_box">
-          Neighborhood Name
-        </label>
+              <form action="/insert_neighborhood" method="post">
+                <div>
+                  <label for="name_box">
+                    Neighborhood Name
+                  </label>
 
-        <input type="text" id="name_box" name="query_name" class="form-control w-25">
-      </div>
+                  <input type="text" id="name_box" name="query_name" class="form-control ">
+                </div>
 
-      <div>
-        <label for="city_id_box" >
-          City
-        </label>
+                <div>
+                  <label for="city_id_box" >
+                    City
+                  </label>
 
-        <select id="city_id_box" name="query_city_id" class="form-select w-25">
-          <% City.all.each do |a_city| %>
+                  <select id="city_id_box" name="query_city_id" class="form-select ">
+                    <% City.all.each do |a_city| %>
 
-          <option value="<%= a_city.id %>"><%= a_city.name %></option>
-          <% end %>
-        </select>
-      </div>
+                      <option value="<%= a_city.id %>"><%= a_city.name %></option>
+                    <% end %>
+                  </select>
+                </div>
 
-      <div>
-        <label for="description_box">
-          Description
-        </label>
+                <div>
+                  <label for="description_box">
+                    Description
+                  </label>
 
-        <textarea id="description_box" name="query_description" rows="3" class="form-control w-25"></textarea>
-      </div>
+                  <textarea id="description_box" name="query_description" rows="3" class="form-control "></textarea>
+                </div>
 
-      <div>
-        <label for="wiki_link_box">
-          Wiki link
-        </label>
+                <div>
+                  <label for="wiki_link_box">
+                    Wiki link
+                  </label>
 
-        <input type="text" id="wiki_link_box" name="query_wiki_link" class="form-control w-25">
-      </div>
+                  <input type="text" id="wiki_link_box" name="query_wiki_link" class="form-control ">
+                </div>
 
+                <button class="btn btn-primary m-2">
+                  Create neighborhood
+                </button>
+              </form>
+            </div>
+ 
+            </form>  <% else %>
+      Sorry, only admin can add new neighborhoods
+    <% end %>
+    </div></div>
+          </div>
+        </div>
 
+        <hr>
+        <div>
+          <div>
+            <table border="1" class="table table-striped table-hover">
+              <tr>
 
-      <button class="btn btn-primary m-2">
-        Create neighborhood
-      </button>
-    </form>
-  </div>
-</div>
+                <th>
+                  Neighborhood Name
+                </th>
 
-<hr>
-<div>
-  <div>
-    <table border="1" class="table table-striped table-hover">
-      <tr>
+                <th>
+                  Description
+                </th>
 
+                <th>
+                  Wiki link
+                </th>
 
-        <th>
-          Neighborhood Name
-        </th>
+                <th>
+                </th>
+              </tr>
 
-        <th>
-          Description
-        </th>
+              <% @list_of_neighborhoods.order(:name => "asc").each do |a_neighborhood| %>
+                <tr>
 
-        <th>
-          Wiki link
-        </th>
+                  <td>
+                    <%= a_neighborhood.name %> (<a href="/cities/<%= a_neighborhood.city.id %>"><%= a_neighborhood.city.name %></a>)
+                  </td>
 
+                  <td>
+                    <%= a_neighborhood.description %>
+                  </td>
 
+                  <td>
+                    <% if a_neighborhood.wiki_link.empty? %>
+                    <% else %>
+                      <a href="<%= a_neighborhood.wiki_link %>">link</a>
+                    <% end %>
+                  </td>
 
-        <th>
-        </th>
-      </tr>
+                  <td>
+                    <a href="/neighborhoods/<%= a_neighborhood.id %>">
+                      More details
+                    </a>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+        </div>
 
-      <% @list_of_neighborhoods.order(:name => "asc").each do |a_neighborhood| %>
-      <tr>
-
-
-        <td>
-          <%= a_neighborhood.name %> (<a href="/cities/<%= a_neighborhood.city.id %>"><%= a_neighborhood.city.name %></a>)
-        </td>
-
-        <td>
-          <%= a_neighborhood.description %>
-        </td>
-
-        <td>
-          <% if a_neighborhood.wiki_link.empty? %>
-          <% else %>
-          <a href="<%= a_neighborhood.wiki_link %>">link</a>
-          <% end %>
-        </td>
-
-
-        <td>
-          <a href="/neighborhoods/<%= a_neighborhood.id %>">
-            More details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
-</div>
-
-<hr>
+        <hr>
